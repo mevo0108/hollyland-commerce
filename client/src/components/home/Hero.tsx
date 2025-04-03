@@ -1,34 +1,36 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import HollyandLogo from "@/assets/hollyand-logo.png";
 
 const Hero = () => {
   return (
-    <section className="relative bg-gray-900 text-white">
+    <section className="relative bg-[#f9e8c1] text-[#2c1810]">
       <div className="absolute inset-0 overflow-hidden">
-        <img 
-          src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da" 
-          alt="Hero background" 
-          className="w-full h-full object-cover object-center opacity-50"
-        />
+        <div className="w-full h-full bg-gradient-to-r from-[#f9e8c1] via-[#f0e0c0] to-[#f4d59a] opacity-70"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik01NC4wMSA0OS4zNDVsLTEyLjAwNS0xMi4wMDVsLTEyLjAwNSAxMi4wMDVsLTEyLjAwNS0xMi4wMDVsLTEyLjAwNSAxMi4wMDVMNi4wMSA0OS4zNDVMMCA0My4zMzVsMTIuMDA1LTEyLjAwNUwwIDE5LjMyNWw2LjAxLTYuMDFsMTIuMDA1IDEyLjAwNUwzMC4wMiAxMy4zMTVsMTIuMDA1IDEyLjAwNUw1NC4wMSAxMy4zMTVsNi4wMSA2LjAxTDQ4LjAxNSAzMS4zM0w2MC4wMiA0My4zMzV6IiBmaWxsPSIjYzQ5YTZjIiBmaWxsLW9wYWNpdHk9IjAuMiIgZmlsbC1ydWxlPSJldmVub2RkIi8+Cjwvc3ZnPg==')]"></div>
       </div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-        <div className="max-w-xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Summer Collection 2023</h1>
-          <p className="text-lg md:text-xl mb-8">Discover our newest products with incredible discounts up to 40% off.</p>
-          <div className="flex flex-col sm:flex-row gap-4">
+        <div className="max-w-xl mx-auto md:mx-0 text-center md:text-left">
+          <div className="mx-auto md:mx-0 w-40 h-40 mb-8 flex items-center justify-center">
+            <img src={HollyandLogo} alt="Hollyand Premium Israel Products" className="w-full h-full object-contain" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold font-serif mb-4 text-[#2c1810]">Premium Israel Products</h1>
+          <p className="text-lg md:text-xl mb-8 font-serif text-[#5c4838]">Authentic products imported directly from Israel. Experience premium quality with our unique collection.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Link href="/products">
-              <Button size="lg" className="font-medium text-center">
+              <Button size="lg" className="vintage-button bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c] font-serif">
                 Shop Now
               </Button>
             </Link>
             <Link href="/products?sale=true">
-              <Button variant="secondary" size="lg" className="bg-white text-gray-900 font-medium text-center">
-                Learn More
+              <Button variant="outline" size="lg" className="bg-[#f9e8c1] border-[#c49a6c] text-[#8B4513] hover:bg-[#f0e0c0] font-serif">
+                View Collection
               </Button>
             </Link>
           </div>
         </div>
       </div>
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#f9e8c1] to-transparent"></div>
     </section>
   );
 };

@@ -34,11 +34,11 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
       <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" onClick={onClose} />
       
       {/* Sidebar */}
-      <div className="fixed top-0 right-0 max-w-md w-full h-full bg-white shadow-xl overflow-y-auto">
-        <div className="p-4 flex justify-between items-center border-b">
-          <h2 className="text-lg font-bold">Your Cart ({cartItems.length})</h2>
-          <Button variant="ghost" size="icon" onClick={onClose}>
-            <CloseIcon className="h-5 w-5" />
+      <div className="fixed top-0 right-0 max-w-md w-full h-full bg-[#f9e8c1] shadow-xl overflow-y-auto border-l border-[#c49a6c]">
+        <div className="p-4 flex justify-between items-center border-b border-[#c49a6c]">
+          <h2 className="text-lg font-bold font-serif text-[#2c1810]">Your Cart ({cartItems.length})</h2>
+          <Button variant="ghost" size="icon" className="bg-[#f0e0c0] hover:bg-[#e0d0b0] border border-[#c49a6c]" onClick={onClose}>
+            <CloseIcon className="h-5 w-5 text-[#8B4513]" />
           </Button>
         </div>
         
@@ -52,7 +52,7 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
               <div className="mb-4">
                 <svg 
                   xmlns="http://www.w3.org/2000/svg" 
-                  className="h-16 w-16 mx-auto text-gray-300" 
+                  className="h-16 w-16 mx-auto text-[#c49a6c]" 
                   fill="none" 
                   viewBox="0 0 24 24" 
                   stroke="currentColor"
@@ -71,54 +71,54 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Your cart is empty</h3>
-              <p className="text-gray-500 mb-4">Looks like you haven't added any products to your cart yet.</p>
-              <Button onClick={onClose}>Start Shopping</Button>
+              <h3 className="text-lg font-bold font-serif text-[#2c1810] mb-2">Your cart is empty</h3>
+              <p className="text-[#5c4838] mb-4 font-serif">Looks like you haven't added any products to your cart yet.</p>
+              <Button className="vintage-button bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c]" onClick={onClose}>Start Shopping</Button>
             </div>
           ) : (
             <div className="space-y-4">
               {cartItems.map((item) => (
-                <div key={item.id} className="flex py-3 border-b">
+                <div key={item.id} className="flex py-3 border-b border-[#c49a6c]">
                   <div className="flex-shrink-0 w-20 h-20">
                     <img 
                       src={item.product.imageUrl} 
                       alt={item.product.name} 
-                      className="w-full h-full object-cover rounded"
+                      className="w-full h-full object-cover rounded border border-[#c49a6c]"
                     />
                   </div>
                   <div className="ml-3 flex-1">
                     <div className="flex justify-between">
                       <Link href={`/products/${item.product.slug}`}>
-                        <a className="text-sm font-medium hover:text-primary">
+                        <a className="text-sm font-medium font-serif text-[#2c1810] hover:text-[#8B4513]">
                           {item.product.name}
                         </a>
                       </Link>
                       <Button 
                         variant="ghost" 
                         size="icon" 
-                        className="h-5 w-5 text-gray-400 hover:text-red-500"
+                        className="h-5 w-5 text-[#8B4513] hover:text-[#ff4500]"
                         onClick={() => removeFromCart(item.id)}
                       >
                         <TrashIcon className="h-4 w-4" />
                       </Button>
                     </div>
-                    <div className="text-gray-500 text-sm">
+                    <div className="text-[#5c4838] text-sm font-serif">
                       ${parseFloat(item.product.price.toString()).toFixed(2)}
                     </div>
                     <div className="flex items-center mt-1">
                       <Button 
                         variant="outline" 
                         size="icon" 
-                        className="h-6 w-6 p-0 rounded-md"
+                        className="h-6 w-6 p-0 rounded-md bg-[#f0e0c0] border-[#c49a6c] hover:bg-[#e0d0b0] text-[#8B4513]"
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       >
                         <MinusIcon className="h-3 w-3" />
                       </Button>
-                      <span className="mx-2 text-sm">{item.quantity}</span>
+                      <span className="mx-2 text-sm font-serif font-medium text-[#2c1810]">{item.quantity}</span>
                       <Button 
                         variant="outline" 
                         size="icon" 
-                        className="h-6 w-6 p-0 rounded-md"
+                        className="h-6 w-6 p-0 rounded-md bg-[#f0e0c0] border-[#c49a6c] hover:bg-[#e0d0b0] text-[#8B4513]"
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       >
                         <PlusIcon className="h-3 w-3" />
@@ -128,29 +128,29 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                 </div>
               ))}
               
-              <div className="mt-4 space-y-2">
+              <div className="mt-6 space-y-3 bg-[#f0e0c0] p-4 rounded-md border border-[#c49a6c]">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal</span>
-                  <span className="font-medium">${cartTotal.toFixed(2)}</span>
+                  <span className="text-[#5c4838] font-serif">Subtotal</span>
+                  <span className="font-medium font-serif text-[#2c1810]">${cartTotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Shipping</span>
-                  <span className="font-medium">Calculated at checkout</span>
+                  <span className="text-[#5c4838] font-serif">Shipping</span>
+                  <span className="font-medium font-serif text-[#2c1810]">Calculated at checkout</span>
                 </div>
-                <Separator className="my-2" />
-                <div className="flex justify-between font-medium">
+                <div className="h-px bg-[#c49a6c] my-2"></div>
+                <div className="flex justify-between font-bold text-[#2c1810] font-serif">
                   <span>Total</span>
                   <span>${cartTotal.toFixed(2)}</span>
                 </div>
                 
-                <div className="mt-6 space-y-2">
+                <div className="mt-6 space-y-3">
                   <Link href="/checkout">
-                    <Button className="w-full" onClick={onClose}>
+                    <Button className="w-full vintage-button bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c]" onClick={onClose}>
                       Checkout
                     </Button>
                   </Link>
                   <Link href="/cart">
-                    <Button variant="outline" className="w-full" onClick={onClose}>
+                    <Button variant="outline" className="w-full bg-[#f9e8c1] border-[#c49a6c] text-[#8B4513] hover:bg-[#f0e0c0] font-serif" onClick={onClose}>
                       View Cart
                     </Button>
                   </Link>

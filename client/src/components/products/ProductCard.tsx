@@ -51,36 +51,39 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
   
   return (
     <div 
-      className="bg-white rounded-lg shadow-sm overflow-hidden group hover:shadow-md transition duration-300 border border-gray-200 h-full flex flex-col cursor-pointer"
+      className="bg-[#f9e8c1] rounded-lg shadow-md overflow-hidden group hover:shadow-lg transition duration-300 border-2 border-[#c49a6c] h-full flex flex-col cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link href={`/products/${product.slug}`}>
         <div className="relative">
-          <img 
-            src={product.imageUrl}
-            alt={product.name}
-            className="w-full h-60 object-cover object-center transition-opacity duration-300"
-          />
+          <div className="relative overflow-hidden">
+            <img 
+              src={product.imageUrl}
+              alt={product.name}
+              className="w-full h-60 object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#2c1810]/20 to-transparent"></div>
+          </div>
           
           {/* Product badges */}
-          <div className="absolute top-0 right-0 p-2">
+          <div className="absolute top-3 right-3">
             {product.isNewArrival && (
-              <Badge className="bg-amber-500 hover:bg-amber-500">New</Badge>
+              <Badge className="bg-[#8B4513] hover:bg-[#8B4513] text-[#f9e8c1] border border-[#c49a6c] font-serif">New</Badge>
             )}
             {product.featured && !product.isNewArrival && (
-              <Badge className="bg-blue-500 hover:bg-blue-500">Popular</Badge>
+              <Badge className="bg-[#2c1810] hover:bg-[#2c1810] text-[#f9e8c1] border border-[#c49a6c] font-serif">Featured</Badge>
             )}
             {product.isSale && (
-              <Badge variant="destructive">Sale</Badge>
+              <Badge className="bg-[#b54834] hover:bg-[#b54834] text-[#f9e8c1] border border-[#c49a6c] font-serif">Sale</Badge>
             )}
           </div>
           
           {/* Quick view overlay */}
-          <div className={`absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+          <div className={`absolute inset-0 bg-[#2c1810] bg-opacity-30 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
             <Button 
-              variant="secondary"
-              className="transform translate-y-2 group-hover:translate-y-0 transition duration-300"
+              variant="outline"
+              className="bg-[#f9e8c1] border border-[#c49a6c] text-[#8B4513] hover:bg-[#f0e0c0] font-serif transform translate-y-2 group-hover:translate-y-0 transition duration-300"
               onClick={handleQuickView}
             >
               Quick View
@@ -88,19 +91,20 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
           </div>
         </div>
         
-        <div className="p-4 flex-grow flex flex-col">
-          <h3 className="text-lg font-medium text-gray-900">{product.name}</h3>
-          <p className="text-gray-500 text-sm mb-2">{product.description}</p>
+        <div className="p-5 flex-grow flex flex-col">
+          <h3 className="text-xl font-serif font-bold text-[#2c1810] group-hover:text-[#8B4513] transition-colors">{product.name}</h3>
+          <div className="w-12 h-0.5 bg-[#c49a6c] my-2"></div>
+          <p className="text-[#5c4838] text-sm mb-4 font-serif">{product.description}</p>
           
           <div className="flex justify-between items-center mt-auto">
             <div>
               {product.isSale && product.originalPrice ? (
-                <div>
-                  <span className="text-lg font-bold text-gray-900">${parseFloat(product.price.toString()).toFixed(2)}</span>
-                  <span className="text-sm text-gray-500 line-through ml-2">${parseFloat(product.originalPrice.toString()).toFixed(2)}</span>
+                <div className="flex flex-col sm:flex-row sm:items-center font-serif">
+                  <span className="text-xl font-bold text-[#b54834]">${parseFloat(product.price.toString()).toFixed(2)}</span>
+                  <span className="text-sm text-[#5c4838] line-through sm:ml-2">${parseFloat(product.originalPrice.toString()).toFixed(2)}</span>
                 </div>
               ) : (
-                <div className="text-lg font-bold text-gray-900">${parseFloat(product.price.toString()).toFixed(2)}</div>
+                <div className="text-xl font-bold text-[#2c1810] font-serif">${parseFloat(product.price.toString()).toFixed(2)}</div>
               )}
             </div>
             
@@ -108,12 +112,12 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
               <div className="flex items-center">
                 {renderStarRating(product.rating ? parseFloat(product.rating.toString()) : 0)}
               </div>
-              <span className="text-gray-500 text-sm ml-1">({product.reviewCount || 0})</span>
+              <span className="text-[#5c4838] text-sm ml-1 font-serif">({product.reviewCount || 0})</span>
             </div>
           </div>
           
           <Button 
-            className="mt-4 w-full"
+            className="mt-5 w-full bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c] font-serif"
             onClick={handleAddToCart}
           >
             Add to Cart
