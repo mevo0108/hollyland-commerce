@@ -19,6 +19,19 @@ export type TranslationKey =
   | 'categories_subtitle'
   | 'view_all'
   
+  // Category Names
+  | 'category_supermarket'
+  | 'category_driedfruits'
+  | 'category_nuts'
+  | 'category_spices'
+  | 'category_bakery'
+  | 'category_sauces'
+  | 'category_alcohol'
+  | 'category_tahini'
+  | 'category_snacks'
+  | 'category_coffee'
+  | 'category_organic'
+  
   // Products
   | 'featured_products'
   | 'featured_subtitle'
@@ -106,6 +119,19 @@ export const translations: Record<Language, TranslationDictionary> = {
     categories_subtitle: 'Explore our curated selection of authentic Israeli products',
     view_all: 'View All',
     
+    // Category Names
+    category_supermarket: 'Supermarket Products',
+    category_driedfruits: 'Dried Fruits',
+    category_nuts: 'Nuts',
+    category_spices: 'Spices & Blends',
+    category_bakery: 'Bakery Products',
+    category_sauces: 'Sauces',
+    category_alcohol: 'Alcohol',
+    category_tahini: 'Tahini & Hummus',
+    category_snacks: 'Snacks & Sweets',
+    category_coffee: 'Coffee',
+    category_organic: 'Organic Products',
+    
     // Products
     featured_products: 'Featured Products',
     featured_subtitle: 'Our most popular items from Israel',
@@ -188,6 +214,19 @@ export const translations: Record<Language, TranslationDictionary> = {
     categories_title: 'קנה לפי קטגוריה',
     categories_subtitle: 'גלה את מבחר המוצרים האותנטיים שלנו מישראל',
     view_all: 'צפה בהכל',
+    
+    // Category Names
+    category_supermarket: 'מוצרי סופר',
+    category_driedfruits: 'פירות ייבשים',
+    category_nuts: 'אגוזים',
+    category_spices: 'תבלינים ותערובות',
+    category_bakery: 'מוצרי מאפה',
+    category_sauces: 'רטבים',
+    category_alcohol: 'אלכוהול',
+    category_tahini: 'טחינה וחומוס',
+    category_snacks: 'ממתקים וחטיפים',
+    category_coffee: 'קפה',
+    category_organic: 'מוצרי מזון אורגנים',
     
     // Products
     featured_products: 'מוצרים מובילים',

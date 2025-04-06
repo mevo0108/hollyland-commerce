@@ -28,34 +28,70 @@ async function seed() {
 async function seedCategories() {
   const categoriesData: InsertCategory[] = [
     { 
-      name: 'Footwear', 
-      description: 'Comfortable and stylish footwear for all occasions', 
-      imageUrl: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12', 
-      slug: 'footwear' 
+      name: 'Supermarket Products', 
+      description: 'Essential grocery items from Israeli markets', 
+      imageUrl: 'https://images.unsplash.com/photo-1579113800032-c38bd7635818', 
+      slug: 'supermarket' 
     },
     { 
-      name: 'Watches', 
-      description: 'Premium watches with advanced features', 
-      imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30', 
-      slug: 'watches' 
+      name: 'Dried Fruits', 
+      description: 'Premium quality dried fruits from Israel', 
+      imageUrl: 'https://images.unsplash.com/photo-1596073419667-9d77d59f033f', 
+      slug: 'dried-fruits' 
     },
     { 
-      name: 'Electronics', 
-      description: 'Latest electronic gadgets and accessories', 
-      imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e', 
-      slug: 'electronics' 
+      name: 'Nuts', 
+      description: 'Fresh and roasted nuts from Israeli farms', 
+      imageUrl: 'https://images.unsplash.com/photo-1563296102-589cc7c2f8f4', 
+      slug: 'nuts' 
     },
     { 
-      name: 'Clothing', 
-      description: 'Fashionable clothing for men and women', 
-      imageUrl: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2', 
-      slug: 'clothing' 
+      name: 'Spices & Blends', 
+      description: 'Authentic Israeli spices and seasoning blends', 
+      imageUrl: 'https://images.unsplash.com/photo-1532336414038-cf19250c5757', 
+      slug: 'spices' 
     },
     { 
-      name: 'Home & Garden', 
-      description: 'Decor and essentials for your home', 
-      imageUrl: 'https://images.unsplash.com/photo-1631729371254-42c2892f0e6e', 
-      slug: 'home-garden' 
+      name: 'Bakery Products', 
+      description: 'Traditional Israeli breads and baked goods', 
+      imageUrl: 'https://images.unsplash.com/photo-1586444248187-f5fea0e13d09', 
+      slug: 'bakery' 
+    },
+    { 
+      name: 'Sauces', 
+      description: 'Authentic Israeli sauces and dips', 
+      imageUrl: 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc', 
+      slug: 'sauces' 
+    },
+    { 
+      name: 'Alcohol', 
+      description: 'Israeli wines, beers, and spirits', 
+      imageUrl: 'https://images.unsplash.com/photo-1566108254082-92f1ca1a8475', 
+      slug: 'alcohol' 
+    },
+    { 
+      name: 'Tahini & Hummus', 
+      description: 'Premium tahini and authentic Israeli hummus', 
+      imageUrl: 'https://images.unsplash.com/photo-1563546541388-39fbcacf9c86', 
+      slug: 'tahini-hummus' 
+    },
+    { 
+      name: 'Snacks & Sweets', 
+      description: 'Delicious Israeli snacks and confectionery', 
+      imageUrl: 'https://images.unsplash.com/photo-1617029566671-5c71fcc915bc', 
+      slug: 'snacks' 
+    },
+    { 
+      name: 'Coffee', 
+      description: 'Premium Israeli coffee beans and blends', 
+      imageUrl: 'https://images.unsplash.com/photo-1518057111178-44a106bad636', 
+      slug: 'coffee' 
+    },
+    { 
+      name: 'Organic Products', 
+      description: 'Certified organic food products from Israel', 
+      imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e', 
+      slug: 'organic' 
     }
   ];
   
@@ -67,117 +103,160 @@ async function seedCategories() {
 async function seedProducts() {
   const productsData: InsertProduct[] = [
     {
-      name: 'Wireless Headphones',
-      description: 'Premium sound quality with active noise cancellation',
-      price: '129.99',
-      imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e',
-      categoryId: 3, // Electronics
+      name: 'Elite Israeli Olive Oil',
+      description: 'Premium extra virgin olive oil from Galilee olive groves',
+      price: '24.99',
+      imageUrl: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5',
+      categoryId: 1, // Supermarket Products
       featured: true,
       isNewArrival: false,
       isSale: false,
       stockQuantity: 50,
-      rating: '4.5',
+      rating: '4.8',
       reviewCount: 42,
-      slug: 'wireless-headphones'
+      slug: 'elite-olive-oil'
     },
     {
-      name: 'Smart Watch',
-      description: 'Fitness & health tracking with advanced features',
-      price: '199.99',
-      imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30',
-      categoryId: 2, // Watches
+      name: 'Israeli Date Mix',
+      description: 'Assortment of premium Medjool and Deglet Noor dates',
+      price: '16.99',
+      imageUrl: 'https://images.unsplash.com/photo-1604085792782-8d92f276d7d8',
+      categoryId: 2, // Dried Fruits
       featured: true,
       isNewArrival: false,
       isSale: false,
       stockQuantity: 30,
       rating: '5.0',
       reviewCount: 89,
-      slug: 'smart-watch'
+      slug: 'israeli-date-mix'
     },
     {
-      name: 'Running Sneakers',
-      description: 'Lightweight & comfortable for optimal performance',
-      price: '89.99',
-      imageUrl: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12',
-      categoryId: 1, // Footwear
+      name: 'Premium Roasted Pistachios',
+      description: 'Fresh roasted pistachios with Mediterranean sea salt',
+      price: '12.99',
+      imageUrl: 'https://images.unsplash.com/photo-1525706732602-9a8567d73e29',
+      categoryId: 3, // Nuts
       featured: true,
       isNewArrival: false,
       isSale: true,
-      originalPrice: '119.99',
+      originalPrice: '15.99',
       stockQuantity: 45,
-      rating: '4.0',
+      rating: '4.7',
       reviewCount: 56,
-      slug: 'running-sneakers'
+      slug: 'premium-pistachios'
     },
     {
-      name: 'Wireless Earbuds',
-      description: 'Superior sound with noise cancellation technology',
-      price: '79.99',
-      imageUrl: 'https://images.unsplash.com/photo-1560343090-f0409e92791a',
-      categoryId: 3, // Electronics
+      name: 'Za\'atar Spice Blend',
+      description: 'Authentic Israeli za\'atar with wild thyme, sesame seeds, and sumac',
+      price: '8.99',
+      imageUrl: 'https://images.unsplash.com/photo-1509358271058-acd22cc93898',
+      categoryId: 4, // Spices & Blends
       featured: true,
       isNewArrival: false,
       isSale: false,
       stockQuantity: 60,
-      rating: '4.5',
+      rating: '4.9',
       reviewCount: 37,
-      slug: 'wireless-earbuds'
+      slug: 'zaatar-spice-blend'
     },
     {
-      name: 'Portable Speaker',
-      description: 'Waterproof design with powerful sound',
-      price: '59.99',
-      imageUrl: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083',
-      categoryId: 3, // Electronics
+      name: 'Jerusalem Artisan Challah',
+      description: 'Traditional braided bread made with organic Israeli flour',
+      price: '9.99',
+      imageUrl: 'https://images.unsplash.com/photo-1600398138360-73c3eaaa8d03',
+      categoryId: 5, // Bakery Products
       featured: false,
       isNewArrival: true,
       isSale: false,
       stockQuantity: 40,
-      rating: '4.0',
-      reviewCount: 12,
-      slug: 'portable-speaker'
+      rating: '4.6',
+      reviewCount: 22,
+      slug: 'artisan-challah'
     },
     {
-      name: 'Sports Sneakers',
-      description: 'Enhanced comfort for all-day wear',
-      price: '99.99',
-      imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff',
-      categoryId: 1, // Footwear
+      name: 'Premium Tahini Sauce',
+      description: 'Creamy tahini made from 100% Ethiopian sesame seeds',
+      price: '11.99',
+      imageUrl: 'https://images.unsplash.com/photo-1590676681590-59bbf667f8e9',
+      categoryId: 8, // Tahini & Hummus
       featured: false,
       isNewArrival: true,
       isSale: false,
       stockQuantity: 35,
-      rating: '4.5',
+      rating: '4.8',
       reviewCount: 24,
-      slug: 'sports-sneakers'
+      slug: 'premium-tahini'
     },
     {
-      name: 'Designer Sunglasses',
-      description: 'Stylish sunglasses with UV protection',
-      price: '149.99',
-      imageUrl: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f',
-      categoryId: 4, // Clothing
+      name: 'Israeli Wine Selection',
+      description: 'Award-winning red wine from the Golan Heights region',
+      price: '29.99',
+      imageUrl: 'https://images.unsplash.com/photo-1553361371-9513901d383f',
+      categoryId: 7, // Alcohol
       featured: false,
       isNewArrival: true,
       isSale: false,
       stockQuantity: 25,
       rating: '5.0',
       reviewCount: 18,
-      slug: 'designer-sunglasses'
+      slug: 'israeli-wine'
     },
     {
-      name: 'Smart Home Device',
-      description: 'Voice-controlled assistant for your home',
-      price: '129.99',
-      imageUrl: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad',
-      categoryId: 3, // Electronics
+      name: 'Organic Bamba Peanut Snacks',
+      description: 'Popular Israeli peanut butter puffed corn snack',
+      price: '4.99',
+      imageUrl: 'https://images.unsplash.com/photo-1584178432809-fb5415b61dc8',
+      categoryId: 9, // Snacks & Sweets
+      featured: true,
+      isNewArrival: true,
+      isSale: false,
+      stockQuantity: 80,
+      rating: '4.7',
+      reviewCount: 31,
+      slug: 'bamba-snacks'
+    },
+    {
+      name: 'Elite Turkish Coffee',
+      description: 'Traditional finely ground dark roast coffee',
+      price: '7.99',
+      imageUrl: 'https://images.unsplash.com/photo-1506372023823-741c83b836fe',
+      categoryId: 10, // Coffee
+      featured: true,
+      isNewArrival: false,
+      isSale: false,
+      stockQuantity: 50,
+      rating: '4.5',
+      reviewCount: 42,
+      slug: 'elite-turkish-coffee'
+    },
+    {
+      name: 'Organic Pomegranate Molasses',
+      description: 'Sweet and tangy reduction made from organic Israeli pomegranates',
+      price: '13.99',
+      imageUrl: 'https://images.unsplash.com/photo-1592845598868-1c2b939181a4',
+      categoryId: 11, // Organic Products
       featured: false,
       isNewArrival: true,
       isSale: false,
-      stockQuantity: 20,
-      rating: '4.0',
-      reviewCount: 31,
-      slug: 'smart-home-device'
+      stockQuantity: 30,
+      rating: '4.8',
+      reviewCount: 16,
+      slug: 'pomegranate-molasses'
+    },
+    {
+      name: 'Israeli Hot Sauce',
+      description: 'Spicy schug sauce with fresh herbs and peppers',
+      price: '6.99',
+      imageUrl: 'https://images.unsplash.com/photo-1581166384010-1a548853cfc5',
+      categoryId: 6, // Sauces
+      featured: false,
+      isNewArrival: true,
+      isSale: true,
+      originalPrice: '8.99',
+      stockQuantity: 45,
+      rating: '4.3',
+      reviewCount: 28,
+      slug: 'israeli-hot-sauce'
     }
   ];
   
