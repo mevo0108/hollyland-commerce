@@ -63,6 +63,8 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
             <img 
               src={product.imageUrl || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=400&h=600&fit=crop'}
               alt={product.name}
+              loading="eager"
+              decoding="async"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.onerror = null;
@@ -81,6 +83,13 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
               }}
               className="w-full h-60 object-cover object-center transition-transform duration-500 group-hover:scale-105"
             />
+            <noscript>
+              <img 
+                src={product.imageUrl || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=400&h=600&fit=crop'}
+                alt={product.name}
+                className="w-full h-60 object-cover object-center"
+              />
+            </noscript>
             <div className="absolute inset-0 bg-gradient-to-t from-[#2c1810]/20 to-transparent"></div>
           </div>
           

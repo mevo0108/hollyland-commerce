@@ -50,13 +50,17 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
     return defaultImages[slug] || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=500&h=500&fit=crop';
   };
 
+  // Preload images to avoid flickering
+  const imageSrc = getDefaultCategoryImage(category.slug);
+
   return (
-    <div className="cursor-pointer">
+    <div className="cursor-pointer h-full">
       <Link href={`/products/category/${category.slug}`}>
-        <div className="group relative">
+        <div className="group relative h-full">
           <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-[#f0e0c0] relative border-2 border-[#c49a6c] shadow-lg">
             <img 
-              src={getDefaultCategoryImage(category.slug)}
+              src={imageSrc}
+              loading="eager"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.onerror = null;
