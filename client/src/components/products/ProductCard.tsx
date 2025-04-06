@@ -61,8 +61,24 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
         <div className="relative">
           <div className="relative overflow-hidden">
             <img 
-              src={'https://placehold.co/400x600/f9e8c1/2c1810?text=' + encodeURIComponent(product.name)}
+              src={product.imageUrl || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=400&h=600&fit=crop'}
               alt={product.name}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.onerror = null;
+                
+                // Define product-specific fallback images by category
+                const productFallbacks: Record<number, string> = {
+                  5: 'https://images.unsplash.com/photo-1586444248187-f5fea0e13d09?q=80&w=400&h=600&fit=crop', // Jerusalem Artisan Challah
+                  6: 'https://images.unsplash.com/photo-1563546541388-39fbcacf9c86?q=80&w=400&h=600&fit=crop', // Tahini
+                  7: 'https://images.unsplash.com/photo-1553361371-9513901d383f?q=80&w=400&h=600&fit=crop', // Wine
+                  8: 'https://images.unsplash.com/photo-1617029566671-5c71fcc915bc?q=80&w=400&h=600&fit=crop', // Bamba
+                  10: 'https://images.unsplash.com/photo-1592845598868-1c2b939181a4?q=80&w=400&h=600&fit=crop', // Pomegranate
+                  11: 'https://images.unsplash.com/photo-1613844077366-3f5115c1889e?q=80&w=400&h=600&fit=crop' // Hot Sauce
+                };
+                
+                target.src = productFallbacks[product.id] || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=400&h=600&fit=crop';
+              }}
               className="w-full h-60 object-cover object-center transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#2c1810]/20 to-transparent"></div>

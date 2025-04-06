@@ -34,20 +34,20 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
   // Get default image based on slug
   const getDefaultCategoryImage = (slug: string): string => {
     const defaultImages: Record<string, string> = {
-      'supermarket': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Supermarket',
-      'dried-fruits': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Dried+Fruits',
-      'nuts': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Nuts',
-      'spices': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Spices',
-      'bakery': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Bakery',
-      'sauces': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Sauces',
-      'alcohol': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Alcohol',
-      'tahini-hummus': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Tahini',
-      'snacks': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Snacks',
-      'coffee': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Coffee',
-      'organic': 'https://placehold.co/400x400/f9e8c1/2c1810?text=Organic'
+      'supermarket': 'https://images.unsplash.com/photo-1579113800032-c38bd7635818?q=80&w=500&h=500&fit=crop',
+      'dried-fruits': 'https://images.unsplash.com/photo-1596073419667-9d77d59f033f?q=80&w=500&h=500&fit=crop',
+      'nuts': 'https://images.unsplash.com/photo-1563296102-589cc7c2f8f4?q=80&w=500&h=500&fit=crop',
+      'spices': 'https://images.unsplash.com/photo-1532336414038-cf19250c5757?q=80&w=500&h=500&fit=crop',
+      'bakery': 'https://images.unsplash.com/photo-1586444248187-f5fea0e13d09?q=80&w=500&h=500&fit=crop',
+      'sauces': 'https://images.unsplash.com/photo-1613991233521-2a65bf16cc88?q=80&w=500&h=500&fit=crop',
+      'alcohol': 'https://images.unsplash.com/photo-1566108254082-92f1ca1a8475?q=80&w=500&h=500&fit=crop',
+      'tahini-hummus': 'https://images.unsplash.com/photo-1563546541388-39fbcacf9c86?q=80&w=500&h=500&fit=crop',
+      'snacks': 'https://images.unsplash.com/photo-1617029566671-5c71fcc915bc?q=80&w=500&h=500&fit=crop',
+      'coffee': 'https://images.unsplash.com/photo-1518057111178-44a106bad636?q=80&w=500&h=500&fit=crop',
+      'organic': 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=500&h=500&fit=crop'
     };
     
-    return defaultImages[slug] || 'https://placehold.co/400x400/f9e8c1/2c1810?text=Hollyand';
+    return defaultImages[slug] || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=500&h=500&fit=crop';
   };
 
   return (
