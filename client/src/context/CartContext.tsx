@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import { apiRequest } from '@/lib/queryClient';
 import { Product } from '@shared/schema';
 
@@ -40,7 +40,7 @@ interface CartProviderProps {
   children: ReactNode;
 }
 
-export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+export const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [sessionId, setSessionId] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
@@ -161,7 +161,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   );
 };
 
-export const useCart = (): CartContextType => {
+// Custom hook to use the cart context
+function useCart(): CartContextType {
   const context = useContext(CartContext);
   return context;
-};
+}
+
+export { useCart };

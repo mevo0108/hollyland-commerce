@@ -13,7 +13,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 // Language storage key in localStorage
 const LANGUAGE_STORAGE_KEY = 'app-language';
 
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   // Get saved language from localStorage or use browser language or default to English
   const getInitialLanguage = (): Language => {
     if (typeof window === 'undefined') return 'en';
@@ -62,10 +62,12 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 };
 
 // Custom hook to use the language context
-export const useLanguage = (): LanguageContextType => {
+function useLanguage(): LanguageContextType {
   const context = useContext(LanguageContext);
   if (context === undefined) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
-};
+}
+
+export { useLanguage };
