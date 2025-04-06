@@ -8,6 +8,7 @@ import ProductDetailPage from "@/pages/ProductDetailPage";
 import CartPage from "@/pages/CartPage";
 import CheckoutPage from "@/pages/CheckoutPage";
 import OrderConfirmationPage from "@/pages/OrderConfirmationPage";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 function Router() {
   return (
@@ -26,13 +27,15 @@ function Router() {
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow">
-        <Router />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow">
+          <Router />
+        </main>
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }
 

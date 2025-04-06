@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { CloseIcon, PlusIcon, MinusIcon, TrashIcon } from "@/lib/icons";
 import { Separator } from "@/components/ui/separator";
 
@@ -12,6 +13,7 @@ interface CartSidebarProps {
 
 const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
   const { cartItems, updateQuantity, removeFromCart, cartTotal, isLoading } = useCart();
+  const { t, isRTL } = useLanguage();
   
   useEffect(() => {
     // Add scroll lock to body when cart is open
@@ -34,9 +36,9 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
       <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" onClick={onClose} />
       
       {/* Sidebar */}
-      <div className="fixed top-0 right-0 max-w-md w-full h-full bg-[#f9e8c1] shadow-xl overflow-y-auto border-l border-[#c49a6c]">
+      <div className={`fixed top-0 ${isRTL ? 'left-0 border-r' : 'right-0 border-l'} max-w-md w-full h-full bg-[#f9e8c1] shadow-xl overflow-y-auto border-[#c49a6c]`}>
         <div className="p-4 flex justify-between items-center border-b border-[#c49a6c]">
-          <h2 className="text-lg font-bold font-serif text-[#2c1810]">Your Cart ({cartItems.length})</h2>
+          <h2 className="text-lg font-bold font-serif text-[#2c1810]">{t('cart_title')} ({cartItems.length})</h2>
           <Button variant="ghost" size="icon" className="bg-[#f0e0c0] hover:bg-[#e0d0b0] border border-[#c49a6c]" onClick={onClose}>
             <CloseIcon className="h-5 w-5 text-[#8B4513]" />
           </Button>
@@ -71,14 +73,16 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold font-serif text-[#2c1810] mb-2">Your cart is empty</h3>
+              <h3 className="text-lg font-bold font-serif text-[#2c1810] mb-2">{t('cart_empty')}</h3>
               <p className="text-[#5c4838] mb-4 font-serif">Looks like you haven't added any products to your cart yet.</p>
-              <Button className="vintage-button bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c]" onClick={onClose}>Start Shopping</Button>
+              <Button className="vintage-button bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c]" onClick={onClose}>
+                {t('continue_shopping')}
+              </Button>
             </div>
           ) : (
             <div className="space-y-4">
               {cartItems.map((item) => (
-                <div key={item.id} className="flex py-3 border-b border-[#c49a6c]">
+                <div key={item.id} className={`flex py-3 border-b border-[#c49a6c] ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                   <div className="flex-shrink-0 w-20 h-20">
                     <img 
                       src={item.product.imageUrl} 
@@ -86,7 +90,7 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
                       className="w-full h-full object-cover rounded border border-[#c49a6c]"
                     />
                   </div>
-                  <div className="ml-3 flex-1">
+                  <div className={`${isRTL ? 'mr-3' : 'ml-3'} flex-1`}>
                     <div className="flex justify-between">
                       <Link href={`/products/${item.product.slug}`}>
                         <a className="text-sm font-medium font-serif text-[#2c1810] hover:text-[#8B4513]">
@@ -130,28 +134,28 @@ const CartSidebar = ({ isOpen, onClose }: CartSidebarProps) => {
               
               <div className="mt-6 space-y-3 bg-[#f0e0c0] p-4 rounded-md border border-[#c49a6c]">
                 <div className="flex justify-between">
-                  <span className="text-[#5c4838] font-serif">Subtotal</span>
+                  <span className="text-[#5c4838] font-serif">{t('subtotal')}</span>
                   <span className="font-medium font-serif text-[#2c1810]">${cartTotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#5c4838] font-serif">Shipping</span>
+                  <span className="text-[#5c4838] font-serif">{t('shipping')}</span>
                   <span className="font-medium font-serif text-[#2c1810]">Calculated at checkout</span>
                 </div>
                 <div className="h-px bg-[#c49a6c] my-2"></div>
                 <div className="flex justify-between font-bold text-[#2c1810] font-serif">
-                  <span>Total</span>
+                  <span>{t('total')}</span>
                   <span>${cartTotal.toFixed(2)}</span>
                 </div>
                 
                 <div className="mt-6 space-y-3">
                   <Link href="/checkout">
                     <Button className="w-full vintage-button bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c]" onClick={onClose}>
-                      Checkout
+                      {t('checkout')}
                     </Button>
                   </Link>
                   <Link href="/cart">
                     <Button variant="outline" className="w-full bg-[#f9e8c1] border-[#c49a6c] text-[#8B4513] hover:bg-[#f0e0c0] font-serif" onClick={onClose}>
-                      View Cart
+                      {t('cart_title')}
                     </Button>
                   </Link>
                 </div>

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { SearchIcon, MenuIcon, CartIcon, ChevronDownIcon } from "@/lib/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import CartSidebar from "./CartSidebar";
 import MobileMenu from "./MobileMenu";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { useQuery } from "@tanstack/react-query";
 import { Category } from "@shared/schema";
 import HollyandLogo from "@/assets/hollyand-logo.png";
@@ -14,6 +16,7 @@ import HollyandLogo from "@/assets/hollyand-logo.png";
 const Header = () => {
   const [location] = useLocation();
   const { cartCount } = useCart();
+  const { t, isRTL } = useLanguage();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
@@ -39,17 +42,17 @@ const Header = () => {
           <nav className="hidden md:flex space-x-8">
             <Link href="/">
               <span className={`text-[#2c1810] hover:text-[#8B4513] font-serif font-medium cursor-pointer ${location === "/" ? "text-[#8B4513]" : ""}`}>
-                Home
+                {t('home')}
               </span>
             </Link>
             
             {/* Categories dropdown */}
             <div className="relative group">
               <button className="text-[#2c1810] group-hover:text-[#8B4513] font-serif font-medium flex items-center">
-                Categories
-                <ChevronDownIcon className="h-4 w-4 ml-1" />
+                {t('categories')}
+                <ChevronDownIcon className={`h-4 w-4 ${isRTL ? 'mr-1' : 'ml-1'}`} />
               </button>
-              <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-[#f9f3e7] border border-[#c49a6c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 ease-in-out z-50">
+              <div className={`absolute ${isRTL ? 'right-0' : 'left-0'} mt-2 w-48 rounded-md shadow-lg bg-[#f9f3e7] border border-[#c49a6c] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 ease-in-out z-50`}>
                 <div className="py-1" role="menu" aria-orientation="vertical">
                   {categories?.map((category) => (
                     <Link key={category.id} href={`/products/category/${category.slug}`}>
@@ -64,33 +67,36 @@ const Header = () => {
             
             <Link href="/products">
               <span className={`text-[#2c1810] hover:text-[#8B4513] font-serif font-medium cursor-pointer ${location === "/products" ? "text-[#8B4513]" : ""}`}>
-                All Products
+                {t('products')}
               </span>
             </Link>
             
             <Link href="/products/category/electronics">
               <span className={`text-[#2c1810] hover:text-[#8B4513] font-serif font-medium cursor-pointer ${location.includes("new-arrivals") ? "text-[#8B4513]" : ""}`}>
-                New Arrivals
+                {t('new_arrivals')}
               </span>
             </Link>
             
             <Link href="/products?sale=true">
               <span className={`text-[#2c1810] hover:text-[#8B4513] font-serif font-medium cursor-pointer ${location.includes("sale") ? "text-[#8B4513]" : ""}`}>
-                Sale
+                {t('sale')}
               </span>
             </Link>
           </nav>
 
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
+            {/* Language Switcher */}
+            <LanguageSwitcher />
+            
             {/* Search */}
             <div className="hidden md:flex relative">
               <Input 
                 type="text"
-                placeholder="Search products..."
-                className="vintage-input w-64 pl-10 pr-4 rounded-md border-[#c49a6c] focus:ring-[#8B4513]/20"
+                placeholder={t('search')}
+                className={`vintage-input w-64 pr-4 rounded-md border-[#c49a6c] focus:ring-[#8B4513]/20 ${isRTL ? 'pr-10 pl-4' : 'pl-10 pr-4'}`}
               />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <div className={`absolute inset-y-0 ${isRTL ? 'right-0 pr-3' : 'left-0 pl-3'} flex items-center pointer-events-none`}>
                 <SearchIcon className="h-4 w-4 text-[#8B4513]" />
               </div>
             </div>
@@ -103,7 +109,7 @@ const Header = () => {
                 className="relative rounded-full bg-[#f0e0c0] hover:bg-[#e0d0b0] border border-[#c49a6c]"
                 onClick={() => setIsCartOpen(true)}
               >
-                <span className="sr-only">View cart</span>
+                <span className="sr-only">{t('cart')}</span>
                 <CartIcon className="h-6 w-6 text-[#8B4513]" />
                 {cartCount > 0 && (
                   <Badge 
