@@ -26,12 +26,16 @@ const ProductDetailPage = () => {
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState("black");
-  
-  const { data: product, isLoading, error } = useQuery<Product>({
+
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useQuery<Product>({
     queryKey: [`/api/products/${slug}`],
     enabled: !!slug,
   });
-  
+
   if (isLoading) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -48,58 +52,72 @@ const ProductDetailPage = () => {
       </div>
     );
   }
-  
+
   if (error || !product) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
-        <p className="text-gray-600 mb-8">Sorry, we couldn't find the product you're looking for.</p>
-        <Button onClick={() => navigate("/products")}>
-          Back to Products
-        </Button>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          Product Not Found
+        </h1>
+        <p className="text-gray-600 mb-8">
+          Sorry, we couldn't find the product you're looking for.
+        </p>
+        <Button onClick={() => navigate("/products")}>Back to Products</Button>
       </div>
     );
   }
-  
+
   // Generate star rating display
   const renderStarRating = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
-    
+
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<StarFilledIcon key={`star-filled-${i}`} className="w-5 h-5 text-yellow-400" />);
+      stars.push(
+        <StarFilledIcon
+          key={`star-filled-${i}`}
+          className="w-5 h-5 text-yellow-400"
+        />,
+      );
     }
-    
+
     if (hasHalfStar) {
-      stars.push(<StarHalfIcon key="star-half" className="w-5 h-5 text-yellow-400" />);
+      stars.push(
+        <StarHalfIcon key="star-half" className="w-5 h-5 text-yellow-400" />,
+      );
     }
-    
+
     const emptyStars = 5 - Math.ceil(rating);
     for (let i = 0; i < emptyStars; i++) {
-      stars.push(<StarOutlineIcon key={`star-outline-${i}`} className="w-5 h-5 text-yellow-400" />);
+      stars.push(
+        <StarOutlineIcon
+          key={`star-outline-${i}`}
+          className="w-5 h-5 text-yellow-400"
+        />,
+      );
     }
-    
+
     return stars;
   };
-  
+
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value > 0) {
       setQuantity(value);
     }
   };
-  
+
   const handleDecrementQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
   };
-  
+
   const handleIncrementQuantity = () => {
     setQuantity(quantity + 1);
   };
-  
+
   const handleAddToCart = () => {
     addToCart(product, quantity);
     toast({
@@ -107,42 +125,46 @@ const ProductDetailPage = () => {
       description: `${quantity} x ${product.name} has been added to your cart`,
     });
   };
-  
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Product images */}
         <div className="space-y-4">
           <div className="aspect-w-1 aspect-h-1 bg-white rounded-lg overflow-hidden border border-gray-200">
-            <img 
-              src={product.imageUrl} 
-              alt={product.name} 
+            <img
+              src={product.imageUrl}
+              alt={product.name}
               className="w-full h-full object-center object-cover"
             />
           </div>
           <div className="grid grid-cols-4 gap-2">
             <div className="aspect-w-1 aspect-h-1 rounded-md overflow-hidden bg-white border border-gray-200 ring-2 ring-primary cursor-pointer">
-              <img 
-                src={product.imageUrl} 
+              <img
+                src={product.imageUrl}
                 alt={`${product.name} thumbnail`}
-                className="w-full h-full object-center object-cover" 
+                className="w-full h-full object-center object-cover"
               />
             </div>
             {/* Additional thumbnails would go here */}
           </div>
         </div>
-        
+
         {/* Product details */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-          
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            {product.name}
+          </h1>
+
           <div className="flex items-center mb-4">
             <div className="flex items-center">
               {renderStarRating(parseFloat(product.rating.toString()))}
             </div>
-            <span className="text-gray-500 text-sm ml-2">({product.reviewCount} reviews)</span>
+            <span className="text-gray-500 text-sm ml-2">
+              ({product.reviewCount} reviews)
+            </span>
           </div>
-          
+
           <div className="text-2xl font-bold text-gray-900 mb-4">
             ${parseFloat(product.price.toString()).toFixed(2)}
             {product.originalPrice && (
@@ -151,50 +173,60 @@ const ProductDetailPage = () => {
               </span>
             )}
           </div>
-          
+
           <p className="text-gray-600 mb-6">{product.description}</p>
-          
+
           {/* Color selection */}
           <div className="mb-6">
             <h3 className="text-sm font-medium text-gray-700 mb-3">Color</h3>
             <div className="flex space-x-2">
-              <button 
+              <button
                 className={`w-8 h-8 rounded-full bg-black focus:outline-none ${
-                  selectedColor === 'black' ? 'ring-2 ring-offset-2 ring-primary' : ''
+                  selectedColor === "black"
+                    ? "ring-2 ring-offset-2 ring-primary"
+                    : ""
                 }`}
-                onClick={() => setSelectedColor('black')}
+                onClick={() => setSelectedColor("black")}
                 aria-label="Black"
               ></button>
-              <button 
+              <button
                 className={`w-8 h-8 rounded-full bg-white border border-gray-300 focus:outline-none ${
-                  selectedColor === 'white' ? 'ring-2 ring-offset-2 ring-primary' : ''
+                  selectedColor === "white"
+                    ? "ring-2 ring-offset-2 ring-primary"
+                    : ""
                 }`}
-                onClick={() => setSelectedColor('white')}
+                onClick={() => setSelectedColor("white")}
                 aria-label="White"
               ></button>
-              <button 
+              <button
                 className={`w-8 h-8 rounded-full bg-red-500 focus:outline-none ${
-                  selectedColor === 'red' ? 'ring-2 ring-offset-2 ring-primary' : ''
+                  selectedColor === "red"
+                    ? "ring-2 ring-offset-2 ring-primary"
+                    : ""
                 }`}
-                onClick={() => setSelectedColor('red')}
+                onClick={() => setSelectedColor("red")}
                 aria-label="Red"
               ></button>
-              <button 
+              <button
                 className={`w-8 h-8 rounded-full bg-blue-500 focus:outline-none ${
-                  selectedColor === 'blue' ? 'ring-2 ring-offset-2 ring-primary' : ''
+                  selectedColor === "blue"
+                    ? "ring-2 ring-offset-2 ring-primary"
+                    : ""
                 }`}
-                onClick={() => setSelectedColor('blue')}
+                onClick={() => setSelectedColor("blue")}
                 aria-label="Blue"
               ></button>
             </div>
           </div>
-          
+
           {/* Quantity selection */}
           <div className="flex items-center mb-6">
-            <span className="text-sm font-medium text-gray-700 mr-4">Quantity</span>
+            <span className="text-sm font-medium text-gray-700 mr-4">
+              Quantity
+            </span>
             <div className="flex items-center border border-gray-300 rounded-md">
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
                 className="px-2 h-9"
                 onClick={handleDecrementQuantity}
@@ -210,8 +242,8 @@ const ProductDetailPage = () => {
                 onChange={handleQuantityChange}
                 className="w-16 text-center border-0 focus:ring-0"
               />
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="icon"
                 className="px-2 h-9"
                 onClick={handleIncrementQuantity}
@@ -220,29 +252,39 @@ const ProductDetailPage = () => {
               </Button>
             </div>
           </div>
-          
+
           {/* Add to cart button */}
-          <Button 
+          <Button
             size="lg"
             className="w-full sm:w-auto mb-4"
             onClick={handleAddToCart}
           >
             Add to Cart
           </Button>
-          
+
           <Separator className="my-6" />
-          
+
           {/* Product info tabs */}
           <Tabs defaultValue="description">
             <TabsList className="w-full">
-              <TabsTrigger value="description" className="flex-1">Description</TabsTrigger>
-              <TabsTrigger value="specifications" className="flex-1">Specifications</TabsTrigger>
-              <TabsTrigger value="shipping" className="flex-1">Shipping</TabsTrigger>
+              <TabsTrigger value="description" className="flex-1">
+                Description
+              </TabsTrigger>
+              <TabsTrigger value="specifications" className="flex-1">
+                Specifications
+              </TabsTrigger>
+              <TabsTrigger value="shipping" className="flex-1">
+                Shipping
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="description" className="pt-4">
               <div className="prose prose-sm max-w-none">
                 <p>{product.description}</p>
-                <p>Experience premium quality with our {product.name}. Designed for comfort, style, and durability, this product will exceed your expectations.</p>
+                <p>
+                  Experience premium quality with our {product.name}. Designed
+                  for comfort, style, and durability, this product will exceed
+                  your expectations.
+                </p>
                 <ul>
                   <li>High-quality materials</li>
                   <li>Durable construction</li>
@@ -283,7 +325,9 @@ const ProductDetailPage = () => {
               <div className="prose prose-sm max-w-none">
                 <div className="flex items-center mb-4">
                   <TruckIcon className="h-5 w-5 text-gray-500 mr-2" />
-                  <p className="text-gray-600">Free shipping on orders over $50</p>
+                  <p className="text-gray-600">
+                    Free shipping on orders over $50
+                  </p>
                 </div>
                 <div className="flex items-center mb-4">
                   <RefreshIcon className="h-5 w-5 text-gray-500 mr-2" />
