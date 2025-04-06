@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { StarFilledIcon, StarHalfIcon, StarOutlineIcon } from "@/lib/icons";
 import { useCart } from "@/context/CartContext";
 import { Product } from "@shared/schema";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProductCardProps {
   product: Product;
@@ -13,6 +14,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
   const { addToCart } = useCart();
+  const { t, isRTL } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
   
   // Generate star rating display
@@ -69,13 +71,13 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
           {/* Product badges */}
           <div className="absolute top-3 right-3">
             {product.isNewArrival && (
-              <Badge className="bg-[#8B4513] hover:bg-[#8B4513] text-[#f9e8c1] border border-[#c49a6c] font-serif">New</Badge>
+              <Badge className="bg-[#8B4513] hover:bg-[#8B4513] text-[#f9e8c1] border border-[#c49a6c] font-serif">{t('new_arrivals')}</Badge>
             )}
             {product.featured && !product.isNewArrival && (
-              <Badge className="bg-[#2c1810] hover:bg-[#2c1810] text-[#f9e8c1] border border-[#c49a6c] font-serif">Featured</Badge>
+              <Badge className="bg-[#2c1810] hover:bg-[#2c1810] text-[#f9e8c1] border border-[#c49a6c] font-serif">{t('featured_products')}</Badge>
             )}
             {product.isSale && (
-              <Badge className="bg-[#b54834] hover:bg-[#b54834] text-[#f9e8c1] border border-[#c49a6c] font-serif">Sale</Badge>
+              <Badge className="bg-[#b54834] hover:bg-[#b54834] text-[#f9e8c1] border border-[#c49a6c] font-serif">{t('sale')}</Badge>
             )}
           </div>
           
@@ -86,7 +88,7 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
               className="bg-[#f9e8c1] border border-[#c49a6c] text-[#8B4513] hover:bg-[#f0e0c0] font-serif transform translate-y-2 group-hover:translate-y-0 transition duration-300"
               onClick={handleQuickView}
             >
-              Quick View
+              {t('quick_view')}
             </Button>
           </div>
         </div>
@@ -120,7 +122,7 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
             className="mt-5 w-full bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c] font-serif"
             onClick={handleAddToCart}
           >
-            Add to Cart
+            {t('add_to_cart')}
           </Button>
         </div>
       </Link>

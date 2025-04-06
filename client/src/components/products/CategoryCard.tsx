@@ -31,13 +31,37 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
   
   const translationKey = getCategoryTranslationKey(category.slug);
   
+  // Get default image based on slug
+  const getDefaultCategoryImage = (slug: string): string => {
+    const defaultImages: Record<string, string> = {
+      'supermarket': 'https://images.unsplash.com/photo-1579113800032-c38bd7635818',
+      'dried-fruits': 'https://images.unsplash.com/photo-1596073419667-9d77d59f033f',
+      'nuts': 'https://images.unsplash.com/photo-1563296102-589cc7c2f8f4',
+      'spices': 'https://images.unsplash.com/photo-1532336414038-cf19250c5757',
+      'bakery': 'https://images.unsplash.com/photo-1586444248187-f5fea0e13d09',
+      'sauces': 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc',
+      'alcohol': 'https://images.unsplash.com/photo-1566108254082-92f1ca1a8475',
+      'tahini-hummus': 'https://images.unsplash.com/photo-1563546541388-39fbcacf9c86',
+      'snacks': 'https://images.unsplash.com/photo-1617029566671-5c71fcc915bc',
+      'coffee': 'https://images.unsplash.com/photo-1518057111178-44a106bad636',
+      'organic': 'https://images.unsplash.com/photo-1542838132-92c53300491e'
+    };
+    
+    return defaultImages[slug] || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0';
+  };
+
   return (
     <div className="cursor-pointer">
       <Link href={`/products/category/${category.slug}`}>
         <div className="group relative">
           <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-[#f0e0c0] relative border-2 border-[#c49a6c] shadow-lg">
             <img 
-              src={category.imageUrl || '/placeholder-category.jpg'} 
+              src={getDefaultCategoryImage(category.slug)}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.onerror = null;
+                target.src = getDefaultCategoryImage(category.slug);
+              }}
               alt={t(translationKey)} 
               className="w-full h-full object-center object-cover group-hover:scale-105 transition duration-300 ease-in-out"
             />

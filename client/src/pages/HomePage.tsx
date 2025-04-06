@@ -1,6 +1,5 @@
 import Hero from "@/components/home/Hero";
 import CategoryList from "@/components/home/CategoryList";
-import FeaturedProducts from "@/components/home/FeaturedProducts";
 import PromoBanner from "@/components/home/PromoBanner";
 import NewArrivals from "@/components/home/NewArrivals";
 import Testimonials from "@/components/home/Testimonials";
@@ -11,7 +10,6 @@ const HomePage = () => {
     <>
       <Hero />
       <CategoryList />
-      <FeaturedProducts />
       <PromoBanner />
       <NewArrivals />
       <Testimonials />

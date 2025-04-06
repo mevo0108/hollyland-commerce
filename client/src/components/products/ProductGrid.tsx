@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import ProductCard from "./ProductCard";
 import QuickViewModal from "./QuickViewModal";
 import { Product } from "@shared/schema";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProductGridProps {
   products: Product[];
@@ -11,6 +12,7 @@ interface ProductGridProps {
 }
 
 const ProductGrid = ({ products, title, viewAllLink }: ProductGridProps) => {
+  const { t, isRTL } = useLanguage();
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   
   const handleOpenQuickView = (product: Product) => {
@@ -28,11 +30,11 @@ const ProductGrid = ({ products, title, viewAllLink }: ProductGridProps) => {
           <h2 className="text-2xl md:text-3xl font-bold font-serif text-[#2c1810] mb-4 md:mb-0">{title}</h2>
           {viewAllLink && (
             <Link href={viewAllLink}>
-              <a className="text-[#8B4513] hover:text-[#6B3009] font-serif flex items-center group">
-                <span className="border-b border-[#c49a6c] group-hover:border-[#8B4513]">View all products</span>
+              <div className="text-[#8B4513] hover:text-[#6B3009] font-serif flex items-center group cursor-pointer">
+                <span className="border-b border-[#c49a6c] group-hover:border-[#8B4513]">{t('view_all')}</span>
                 <svg 
                   xmlns="http://www.w3.org/2000/svg" 
-                  className="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" 
+                  className={`h-5 w-5 ${isRTL ? 'mr-1 transform rotate-180' : 'ml-1'} group-hover:${isRTL ? '-translate-x-1' : 'translate-x-1'} transition-transform`}
                   viewBox="0 0 20 20" 
                   fill="currentColor"
                 >
@@ -42,7 +44,7 @@ const ProductGrid = ({ products, title, viewAllLink }: ProductGridProps) => {
                     clipRule="evenodd" 
                   />
                 </svg>
-              </a>
+              </div>
             </Link>
           )}
         </div>
