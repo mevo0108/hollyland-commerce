@@ -12,6 +12,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { useQuery } from "@tanstack/react-query";
 import { Category } from "@shared/schema";
 import HollyandLogo from "@/assets/hollyand-logo.png";
+import { TranslationKey } from "@/lib/translations";
 
 const Header = () => {
   const [location] = useLocation();
@@ -23,6 +24,25 @@ const Header = () => {
   const { data: categories } = useQuery<Category[]>({
     queryKey: ['/api/categories'],
   });
+  
+  // Map category slug to translation key
+  const getCategoryTranslationKey = (slug: string): TranslationKey => {
+    const keyMap: Record<string, TranslationKey> = {
+      'supermarket-products': 'category_supermarket',
+      'dried-fruits': 'category_driedfruits',
+      'nuts': 'category_nuts',
+      'spices-and-blends': 'category_spices',
+      'bakery-products': 'category_bakery',
+      'sauces': 'category_sauces',
+      'alcohol': 'category_alcohol',
+      'tahini-and-hummus': 'category_tahini',
+      'snacks-and-sweets': 'category_snacks',
+      'coffee': 'category_coffee',
+      'organic-products': 'category_organic'
+    };
+    
+    return keyMap[slug] || 'categories';
+  };
 
   return (
     <header className="bg-[#f9e8c1] shadow-md sticky top-0 z-50 border-b border-[#c49a6c]">
@@ -57,7 +77,7 @@ const Header = () => {
                   {categories?.map((category) => (
                     <Link key={category.id} href={`/products/category/${category.slug}`}>
                       <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif" role="menuitem">
-                        {category.name}
+                        {t(getCategoryTranslationKey(category.slug))}
                       </span>
                     </Link>
                   ))}

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Category } from "@shared/schema";
 import { useLanguage } from "@/context/LanguageContext";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { TranslationKey } from "@/lib/translations";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -16,6 +17,25 @@ interface MobileMenuProps {
 const MobileMenu = ({ isOpen, onClose, categories }: MobileMenuProps) => {
   const [mounted, setMounted] = useState(false);
   const { t, isRTL } = useLanguage();
+  
+  // Map category slug to translation key
+  const getCategoryTranslationKey = (slug: string): TranslationKey => {
+    const keyMap: Record<string, TranslationKey> = {
+      'supermarket-products': 'category_supermarket',
+      'dried-fruits': 'category_driedfruits',
+      'nuts': 'category_nuts',
+      'spices-and-blends': 'category_spices',
+      'bakery-products': 'category_bakery',
+      'sauces': 'category_sauces',
+      'alcohol': 'category_alcohol',
+      'tahini-and-hummus': 'category_tahini',
+      'snacks-and-sweets': 'category_snacks',
+      'coffee': 'category_coffee',
+      'organic-products': 'category_organic'
+    };
+    
+    return keyMap[slug] || 'categories';
+  };
   
   useEffect(() => {
     setMounted(true);
@@ -88,7 +108,7 @@ const MobileMenu = ({ isOpen, onClose, categories }: MobileMenuProps) => {
                     className="block px-3 py-2 rounded-md text-[#2c1810] font-serif font-medium hover:bg-[#f0e0c0] hover:text-[#8B4513] border border-transparent hover:border-[#c49a6c] transition-all"
                     onClick={onClose}
                   >
-                    {category.name}
+                    {t(getCategoryTranslationKey(category.slug))}
                   </a>
                 </Link>
               ))}
