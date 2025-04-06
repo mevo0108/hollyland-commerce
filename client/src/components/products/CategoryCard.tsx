@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Category } from "@shared/schema";
 import { useLanguage } from "@/context/LanguageContext";
@@ -9,6 +10,7 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ category }: CategoryCardProps) => {
   const { t } = useLanguage();
+  const [imageLoaded, setImageLoaded] = useState(false);
   
   // Map category slug to translation key
   const getCategoryTranslationKey = (slug: string): TranslationKey => {
@@ -50,13 +52,30 @@ const CategoryCard = ({ category }: CategoryCardProps) => {
     return defaultImages[slug] || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=500&h=500&fit=crop';
   };
 
-  // Preload images to avoid flickering
-  const imageSrc = getDefaultCategoryImage(category.slug);
+  // Immediately set image source
+  const imageSrc = category.imageUrl || getDefaultCategoryImage(category.slug);
+  
+  // Image preloading effect
+  useEffect(() => {
+    const img = new Image();
+    img.src = imageSrc;
+    
+    img.onload = () => {
+      setImageLoaded(true);
+    };
+    
+    // Set as loaded after timeout regardless, to avoid endless loading state
+    const timer = setTimeout(() => {
+      setImageLoaded(true);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, [imageSrc]);
 
   return (
     <div className="cursor-pointer h-full">
       <Link href={`/products/category/${category.slug}`}>
-        <div className="group relative h-full">
+        <div className={`group relative h-full transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-[#f0e0c0] relative border-2 border-[#c49a6c] shadow-lg">
             <img 
               src={imageSrc}

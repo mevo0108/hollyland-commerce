@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +16,7 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
   const { addToCart } = useCart();
   const { t, isRTL } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   
   // Generate star rating display
   const renderStarRating = (rating: number) => {
@@ -51,45 +52,75 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
     }
   };
   
+  // Define product-specific fallback images by category
+  const getProductImage = (): string => {
+    // If product has image, use it
+    if (product.imageUrl) return product.imageUrl;
+    
+    // Otherwise use fallback by product id or category
+    const productFallbacks: Record<number, string> = {
+      5: 'https://images.unsplash.com/photo-1586444248187-f5fea0e13d09?q=80&w=400&h=600&fit=crop', // Jerusalem Artisan Challah
+      6: 'https://images.unsplash.com/photo-1563546541388-39fbcacf9c86?q=80&w=400&h=600&fit=crop', // Tahini
+      7: 'https://images.unsplash.com/photo-1553361371-9513901d383f?q=80&w=400&h=600&fit=crop', // Wine
+      8: 'https://images.unsplash.com/photo-1617029566671-5c71fcc915bc?q=80&w=400&h=600&fit=crop', // Bamba
+      10: 'https://images.unsplash.com/photo-1592845598868-1c2b939181a4?q=80&w=400&h=600&fit=crop', // Pomegranate
+      11: 'https://images.unsplash.com/photo-1613844077366-3f5115c1889e?q=80&w=400&h=600&fit=crop' // Hot Sauce
+    };
+    
+    // Category-based fallbacks
+    const categoryFallbacks: Record<number, string> = {
+      1: 'https://images.unsplash.com/photo-1597362925123-77861d3fbac7?q=80&w=400&h=600&fit=crop', // Supermarket
+      2: 'https://images.unsplash.com/photo-1598569304117-624d53fd951f?q=80&w=400&h=600&fit=crop', // Dried Fruits
+      4: 'https://images.unsplash.com/photo-1532336414038-cf19250c5757?q=80&w=400&h=600&fit=crop', // Spices
+      8: 'https://images.unsplash.com/photo-1614634424235-1f93d6299f04?q=80&w=400&h=600&fit=crop' // Tahini
+    };
+    
+    return productFallbacks[product.id] || 
+           categoryFallbacks[product.categoryId] || 
+           'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=400&h=600&fit=crop';
+  };
+  
+  const imageSrc = getProductImage();
+  
+  // Image preloading effect
+  useEffect(() => {
+    const img = new Image();
+    img.src = imageSrc;
+    
+    img.onload = () => {
+      setImageLoaded(true);
+    };
+    
+    // Set as loaded after timeout regardless, to avoid endless loading state
+    const timer = setTimeout(() => {
+      setImageLoaded(true);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, [imageSrc]);
+  
   return (
     <div 
-      className="bg-[#f9e8c1] rounded-lg shadow-md overflow-hidden group hover:shadow-lg transition duration-300 border-2 border-[#c49a6c] h-full flex flex-col cursor-pointer"
+      className={`bg-[#f9e8c1] rounded-lg shadow-md overflow-hidden group hover:shadow-lg transition-all duration-300 border-2 border-[#c49a6c] h-full flex flex-col cursor-pointer ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{ transition: 'opacity 0.5s ease-in-out' }}
     >
       <Link href={`/products/${product.slug}`}>
         <div className="relative">
           <div className="relative overflow-hidden">
             <img 
-              src={product.imageUrl || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=400&h=600&fit=crop'}
+              src={imageSrc}
               alt={product.name}
               loading="eager"
               decoding="async"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.onerror = null;
-                
-                // Define product-specific fallback images by category
-                const productFallbacks: Record<number, string> = {
-                  5: 'https://images.unsplash.com/photo-1586444248187-f5fea0e13d09?q=80&w=400&h=600&fit=crop', // Jerusalem Artisan Challah
-                  6: 'https://images.unsplash.com/photo-1563546541388-39fbcacf9c86?q=80&w=400&h=600&fit=crop', // Tahini
-                  7: 'https://images.unsplash.com/photo-1553361371-9513901d383f?q=80&w=400&h=600&fit=crop', // Wine
-                  8: 'https://images.unsplash.com/photo-1617029566671-5c71fcc915bc?q=80&w=400&h=600&fit=crop', // Bamba
-                  10: 'https://images.unsplash.com/photo-1592845598868-1c2b939181a4?q=80&w=400&h=600&fit=crop', // Pomegranate
-                  11: 'https://images.unsplash.com/photo-1613844077366-3f5115c1889e?q=80&w=400&h=600&fit=crop' // Hot Sauce
-                };
-                
-                target.src = productFallbacks[product.id] || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=400&h=600&fit=crop';
+                target.src = 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=400&h=600&fit=crop';
               }}
               className="w-full h-60 object-cover object-center transition-transform duration-500 group-hover:scale-105"
             />
-            <noscript>
-              <img 
-                src={product.imageUrl || 'https://images.unsplash.com/photo-1607349913338-fca6f7fc42d0?q=80&w=400&h=600&fit=crop'}
-                alt={product.name}
-                className="w-full h-60 object-cover object-center"
-              />
-            </noscript>
             <div className="absolute inset-0 bg-gradient-to-t from-[#2c1810]/20 to-transparent"></div>
           </div>
           
