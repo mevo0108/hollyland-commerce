@@ -42,7 +42,7 @@ async function seedCategories() {
     { 
       name: 'Nuts', 
       description: 'Fresh and roasted nuts from Israeli farms', 
-      imageUrl: 'https://images.unsplash.com/photo-1563296102-589cc7c2f8f4', 
+      imageUrl: 'https://images.unsplash.com/photo-1606923829579-0cb981a83e2e', 
       slug: 'nuts' 
     },
     { 
@@ -54,31 +54,31 @@ async function seedCategories() {
     { 
       name: 'Bakery Products', 
       description: 'Traditional Israeli breads and baked goods', 
-      imageUrl: 'https://images.unsplash.com/photo-1586444248187-f5fea0e13d09', 
+      imageUrl: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc7c', 
       slug: 'bakery' 
     },
     { 
       name: 'Sauces', 
       description: 'Authentic Israeli sauces and dips', 
-      imageUrl: 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc', 
+      imageUrl: 'https://images.unsplash.com/photo-1578020190125-f4f7c1c6f9b7', 
       slug: 'sauces' 
     },
     { 
       name: 'Alcohol', 
       description: 'Israeli wines, beers, and spirits', 
-      imageUrl: 'https://images.unsplash.com/photo-1566108254082-92f1ca1a8475', 
+      imageUrl: 'https://images.unsplash.com/photo-1566633806327-68e152aaf26d', 
       slug: 'alcohol' 
     },
     { 
       name: 'Tahini & Hummus', 
       description: 'Premium tahini and authentic Israeli hummus', 
-      imageUrl: 'https://images.unsplash.com/photo-1563546541388-39fbcacf9c86', 
+      imageUrl: 'https://images.unsplash.com/photo-1590311930826-c6c9e159aaab', 
       slug: 'tahini-hummus' 
     },
     { 
       name: 'Snacks & Sweets', 
       description: 'Delicious Israeli snacks and confectionery', 
-      imageUrl: 'https://images.unsplash.com/photo-1617029566671-5c71fcc915bc', 
+      imageUrl: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60', 
       slug: 'snacks' 
     },
     { 

@@ -85,7 +85,7 @@ const CategoryList = () => {
           <SimpleCategory 
             id={3} 
             slug="nuts" 
-            image="https://images.unsplash.com/photo-1563296102-589cc7c2f8f4?q=80&w=500&h=500&fit=crop" 
+            image="https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?q=80&w=500&h=500&fit=crop" 
           />
           <SimpleCategory 
             id={4} 
@@ -95,27 +95,27 @@ const CategoryList = () => {
           <SimpleCategory 
             id={5} 
             slug="bakery" 
-            image="https://images.unsplash.com/photo-1586444248187-f5fea0e13d09?q=80&w=500&h=500&fit=crop" 
+            image="https://images.unsplash.com/photo-1549931319-a545dcf3bc7c?q=80&w=500&h=500&fit=crop" 
           />
           <SimpleCategory 
             id={6} 
             slug="sauces" 
-            image="https://images.unsplash.com/photo-1613991233521-2a65bf16cc88?q=80&w=500&h=500&fit=crop" 
+            image="https://images.unsplash.com/photo-1578020190125-f4f7c1c6f9b7?q=80&w=500&h=500&fit=crop" 
           />
           <SimpleCategory 
             id={7} 
             slug="alcohol" 
-            image="https://images.unsplash.com/photo-1545418776-ad395723b29f?q=80&w=500&h=500&fit=crop" 
+            image="https://images.unsplash.com/photo-1566633806327-68e152aaf26d?q=80&w=500&h=500&fit=crop" 
           />
           <SimpleCategory 
             id={8} 
             slug="tahini-hummus" 
-            image="https://images.unsplash.com/photo-1614634424235-1f93d6299f04?q=80&w=500&h=500&fit=crop" 
+            image="https://images.unsplash.com/photo-1590311930826-c6c9e159aaab?q=80&w=500&h=500&fit=crop" 
           />
           <SimpleCategory 
             id={9} 
             slug="snacks" 
-            image="https://images.unsplash.com/photo-1617029566671-5c71fcc915bc?q=80&w=500&h=500&fit=crop" 
+            image="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=500&h=500&fit=crop" 
           />
           <SimpleCategory 
             id={10} 

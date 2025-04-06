@@ -151,7 +151,7 @@ const NewArrivals = () => {
             name="Tel Aviv Date Honey"
             price={15.99}
             description="Natural date honey (silan) from Israeli dates"
-            image="https://images.unsplash.com/photo-1558642115-85a221daf5ed?q=80&w=500&h=500&fit=crop"
+            image="https://images.unsplash.com/photo-1572190729335-91598294fbff?q=80&w=500&h=500&fit=crop"
             slug="tel-aviv-date-honey"
             isFeatured={false}
             isNew={true}
@@ -165,7 +165,7 @@ const NewArrivals = () => {
             name="Golan Heights Wine"
             price={29.99}
             description="Award-winning red wine from the Golan Heights region"
-            image="https://images.unsplash.com/photo-1553682544-4ccf2778c93e?q=80&w=500&h=500&fit=crop"
+            image="https://images.unsplash.com/photo-1586370434639-0fe43b2d32e6?q=80&w=500&h=500&fit=crop"
             slug="golan-heights-wine"
             isFeatured={false}
             isNew={true}

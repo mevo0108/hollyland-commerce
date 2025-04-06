@@ -149,7 +149,7 @@ const FeaturedProducts = () => {
             name="Jerusalem Artisan Tahini"
             price={12.99}
             description="Premium stone-ground tahini made from the finest Ethiopian sesame seeds"
-            image="https://images.unsplash.com/photo-1632789395166-c94c99c3229d?q=80&w=500&h=500&fit=crop"
+            image="https://images.unsplash.com/photo-1590676681590-59bbf667f8e9?q=80&w=500&h=500&fit=crop"
             slug="jerusalem-artisan-tahini"
             isFeatured={true}
             isNew={false}
@@ -178,7 +178,7 @@ const FeaturedProducts = () => {
             name="Dead Sea Salt Mix"
             price={8.99}
             description="Authentic spice blend with minerals from the Dead Sea"
-            image="https://images.unsplash.com/photo-1599189580324-5bc54f93ead3?q=80&w=500&h=500&fit=crop"
+            image="https://images.unsplash.com/photo-1532336414038-cf19250c5757?q=80&w=500&h=500&fit=crop"
             slug="dead-sea-salt-mix"
             isFeatured={true}
             isNew={false}
