@@ -28,17 +28,17 @@ const Header = () => {
   // Map category slug to translation key
   const getCategoryTranslationKey = (slug: string): TranslationKey => {
     const keyMap: Record<string, TranslationKey> = {
-      'supermarket-products': 'category_supermarket',
+      'supermarket': 'category_supermarket',
       'dried-fruits': 'category_driedfruits',
       'nuts': 'category_nuts',
-      'spices-and-blends': 'category_spices',
-      'bakery-products': 'category_bakery',
+      'spices': 'category_spices',
+      'bakery': 'category_bakery',
       'sauces': 'category_sauces',
       'alcohol': 'category_alcohol',
-      'tahini-and-hummus': 'category_tahini',
-      'snacks-and-sweets': 'category_snacks',
+      'tahini-hummus': 'category_tahini',
+      'snacks': 'category_snacks',
       'coffee': 'category_coffee',
-      'organic-products': 'category_organic'
+      'organic': 'category_organic'
     };
     
     return keyMap[slug] || 'categories';
