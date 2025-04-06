@@ -61,13 +61,8 @@ const ProductCard = ({ product, onQuickView }: ProductCardProps) => {
         <div className="relative">
           <div className="relative overflow-hidden">
             <img 
-              src={product.imageUrl || 'https://placehold.co/400x600/f9e8c1/2c1810?text=Hollyand'}
+              src={'https://placehold.co/400x600/f9e8c1/2c1810?text=' + encodeURIComponent(product.name)}
               alt={product.name}
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.onerror = null;
-                target.src = 'https://placehold.co/400x600/f9e8c1/2c1810?text=Hollyand';
-              }}
               className="w-full h-60 object-cover object-center transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#2c1810]/20 to-transparent"></div>
