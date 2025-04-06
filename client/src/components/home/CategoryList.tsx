@@ -17,8 +17,8 @@ const CategoryList = () => {
             <h2 className="text-3xl md:text-4xl font-bold font-serif text-[#2c1810] mb-3">{t('categories_title')}</h2>
             <div className="vintage-divider w-24 mx-auto"></div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-            {[...Array(4)].map((_, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+            {[...Array(10)].map((_, i) => (
               <div key={i} className="aspect-w-1 aspect-h-1 rounded-lg bg-[#f0e0c0] border border-[#c49a6c] animate-pulse" />
             ))}
           </div>
@@ -39,7 +39,7 @@ const CategoryList = () => {
           <div className="vintage-divider w-24 mx-auto"></div>
           <p className="text-[#5c4838] font-serif mt-4 max-w-2xl mx-auto">{t('categories_subtitle')}</p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}
