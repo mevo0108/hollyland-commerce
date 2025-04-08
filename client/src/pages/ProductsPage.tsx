@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation, useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import ProductGrid from "@/components/products/ProductGrid";
@@ -11,17 +11,27 @@ import { Slider } from "@/components/ui/slider";
 import { Category, Product } from "@shared/schema";
 import { SearchIcon } from "@/lib/icons";
 
+// פונקציה לקבלת מוצרים לפי קטגוריה
+const getProductsByCategory = async (categoryId: number | null): Promise<Product[]> => {
+  if (!categoryId) return [];
+  const response = await fetch(`/api/products/category/${categoryId}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch products by category');
+  }
+  return response.json();
+};
+
 const ProductsPage = () => {
   const [location, setLocation] = useLocation();
   const params = useParams();
   const categorySlug = params?.slug;
-  
+
   // Parse query params from URL
   const searchParams = new URLSearchParams(location.split('?')[1] || '');
   const initialFeatured = searchParams.get('featured') === 'true';
   const initialNew = searchParams.get('new') === 'true';
   const initialSale = searchParams.get('sale') === 'true';
-  
+
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
   const [featured, setFeatured] = useState(initialFeatured);
@@ -29,23 +39,24 @@ const ProductsPage = () => {
   const [onSale, setOnSale] = useState(initialSale);
   const [priceRange, setPriceRange] = useState([0, 200]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  
+
   // Get all products
   const { data: allProducts, isLoading: productsLoading } = useQuery<Product[]>({
     queryKey: ['/api/products'],
   });
-  
+
   // Get all categories
   const { data: categories, isLoading: categoriesLoading } = useQuery<Category[]>({
     queryKey: ['/api/categories'],
   });
-  
-  // If category slug is provided, get products for that category
-  const { data: categoryProducts, isLoading: categoryProductsLoading } = useQuery<Product[]>({
-    queryKey: ['/api/products/category', selectedCategory],
+
+  // Get products based on category
+  const { data: categoryProducts, isLoading: isLoadingCategory } = useQuery({
+    queryKey: ['products', 'category', selectedCategory],
+    queryFn: () => getProductsByCategory(selectedCategory),
     enabled: !!selectedCategory,
   });
-  
+
   // Fetch category ID based on slug
   useEffect(() => {
     if (categorySlug && categories) {
@@ -55,61 +66,44 @@ const ProductsPage = () => {
       }
     }
   }, [categorySlug, categories]);
-  
+
   // Update URL when filters change
   useEffect(() => {
     const params = new URLSearchParams();
     if (featured) params.append('featured', 'true');
     if (isNew) params.append('new', 'true');
     if (onSale) params.append('sale', 'true');
-    
+
     const newUrl = location.split('?')[0] + (params.toString() ? `?${params.toString()}` : '');
     if (newUrl !== location) {
       setLocation(newUrl);
     }
   }, [featured, isNew, onSale, location, setLocation]);
-  
-  // Filter products based on criteria
-  const filteredProducts = (() => {
-    if (!allProducts) return [];
-    
-    // Start with category products if a category is selected, otherwise use all products
-    let filtered = categoryProducts || allProducts;
-    
-    // Apply filters
-    if (searchTerm) {
-      filtered = filtered.filter(p => 
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-    }
-    
-    if (featured) {
-      filtered = filtered.filter(p => p.featured);
-    }
-    
-    if (isNew) {
-      filtered = filtered.filter(p => p.isNewArrival);
-    }
-    
-    if (onSale) {
-      filtered = filtered.filter(p => p.isSale);
-    }
-    
-    filtered = filtered.filter(p => {
-      const price = parseFloat(p.price.toString());
-      return price >= priceRange[0] && price <= priceRange[1];
+
+  // Filter products based on search and filters
+  const filteredProducts = useMemo(() => {
+    const productsToFilter = selectedCategory ? categoryProducts || [] : allProducts || [];
+
+    return productsToFilter.filter((product: Product) => {
+      const matchesSearch = searchTerm === '' ||
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (product.description?.toLowerCase() || '').includes(searchTerm.toLowerCase());
+
+      const matchesFeatured = !featured || product.featured;
+      const matchesNew = !isNew || product.isNewArrival;
+      const matchesSale = !onSale || product.isSale;
+      const matchesPrice = Number(product.price) >= priceRange[0] && Number(product.price) <= priceRange[1];
+
+      return matchesSearch && matchesFeatured && matchesNew && matchesSale && matchesPrice;
     });
-    
-    return filtered;
-  })();
-  
-  const isLoading = productsLoading || categoriesLoading || (categorySlug && categoryProductsLoading);
-  
+  }, [allProducts, categoryProducts, selectedCategory, searchTerm, featured, isNew, onSale, priceRange]);
+
+  const isLoading = productsLoading || categoriesLoading || (selectedCategory && isLoadingCategory);
+
   const handlePriceChange = (value: number[]) => {
     setPriceRange(value);
   };
-  
+
   const clearFilters = () => {
     setSearchTerm("");
     setFeatured(false);
@@ -120,7 +114,24 @@ const ProductsPage = () => {
       setLocation("/products");
     }
   };
-  
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="animate-pulse">
+              <div className="bg-gray-200 h-64 rounded-lg mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-col md:flex-row gap-8">
@@ -128,7 +139,7 @@ const ProductsPage = () => {
         <div className="w-full md:w-64 flex-shrink-0">
           <div className="bg-white p-6 rounded-lg shadow-sm sticky top-24">
             <h2 className="text-lg font-bold mb-4">Filters</h2>
-            
+
             <div className="mb-6">
               <div className="relative">
                 <Input
@@ -143,7 +154,7 @@ const ProductsPage = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="mb-6">
               <h3 className="text-sm font-medium mb-2">Price Range</h3>
               <Slider
@@ -159,9 +170,9 @@ const ProductsPage = () => {
                 <span>${priceRange[1]}</span>
               </div>
             </div>
-            
+
             <Separator className="my-4" />
-            
+
             <div className="mb-6">
               <h3 className="text-sm font-medium mb-2">Product Type</h3>
               <div className="space-y-2">
@@ -206,11 +217,11 @@ const ProductsPage = () => {
                 </div>
               </div>
             </div>
-            
+
             {categories && categories.length > 0 && (
               <>
                 <Separator className="my-4" />
-                
+
                 <div className="mb-6">
                   <h3 className="text-sm font-medium mb-2">Categories</h3>
                   <div className="space-y-2">
@@ -239,7 +250,7 @@ const ProductsPage = () => {
                 </div>
               </>
             )}
-            
+
             <Button
               variant="outline"
               className="w-full"
@@ -249,7 +260,7 @@ const ProductsPage = () => {
             </Button>
           </div>
         </div>
-        
+
         {/* Main content with products */}
         <div className="flex-grow">
           <div className="mb-6">
@@ -270,19 +281,8 @@ const ProductsPage = () => {
               {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''} found
             </p>
           </div>
-          
-          {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="bg-white rounded-lg shadow-sm p-4 h-96 animate-pulse">
-                  <div className="h-60 bg-gray-200 rounded-md mb-4"></div>
-                  <div className="h-5 bg-gray-200 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
-                  <div className="h-10 bg-gray-200 rounded mt-auto"></div>
-                </div>
-              ))}
-            </div>
-          ) : filteredProducts.length === 0 ? (
+
+          {filteredProducts.length === 0 ? (
             <div className="bg-white p-8 rounded-lg shadow-sm text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

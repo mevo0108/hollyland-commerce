@@ -1,6 +1,6 @@
 export type Language = 'en' | 'he';
 
-export type TranslationKey = 
+export type TranslationKey =
   // Navigation
   | 'home'
   | 'products'
@@ -8,17 +8,18 @@ export type TranslationKey =
   | 'cart'
   | 'checkout'
   | 'search'
-  
+  | 'all_products'
+
   // Hero section
   | 'hero_title'
   | 'hero_subtitle'
   | 'hero_button'
-  
+
   // Categories
   | 'categories_title'
   | 'categories_subtitle'
   | 'view_all'
-  
+
   // Category Names
   | 'category_supermarket'
   | 'category_driedfruits'
@@ -31,7 +32,7 @@ export type TranslationKey =
   | 'category_snacks'
   | 'category_coffee'
   | 'category_organic'
-  
+
   // Products
   | 'featured_products'
   | 'featured_subtitle'
@@ -41,19 +42,19 @@ export type TranslationKey =
   | 'add_to_cart'
   | 'price'
   | 'sale'
-  
+
   // Testimonials
   | 'testimonials_title'
   | 'testimonials_subtitle'
   | 'testimonials_footer'
-  
+
   // Newsletter
   | 'newsletter_title'
   | 'newsletter_subtitle'
   | 'newsletter_placeholder'
   | 'newsletter_button'
   | 'newsletter_privacy'
-  
+
   // Cart
   | 'cart_title'
   | 'cart_empty'
@@ -62,7 +63,7 @@ export type TranslationKey =
   | 'proceed_to_checkout'
   | 'remove'
   | 'quantity'
-  
+
   // Checkout
   | 'checkout_title'
   | 'billing_details'
@@ -78,13 +79,13 @@ export type TranslationKey =
   | 'shipping'
   | 'total'
   | 'place_order'
-  
+
   // Order confirmation
   | 'order_confirmation_title'
   | 'order_confirmation_message'
   | 'order_number'
   | 'back_to_shopping'
-  
+
   // Footer
   | 'footer_company'
   | 'footer_about'
@@ -93,7 +94,8 @@ export type TranslationKey =
   | 'footer_returns'
   | 'footer_privacy'
   | 'footer_terms'
-  | 'footer_copyright';
+  | 'footer_copyright'
+  | 'all_products';
 
 type TranslationDictionary = {
   [key in TranslationKey]: string;
@@ -108,17 +110,18 @@ export const translations: Record<Language, TranslationDictionary> = {
     cart: 'Cart',
     checkout: 'Checkout',
     search: 'Search',
-    
+    all_products: 'All Products',
+
     // Hero section
     hero_title: 'Authentic Flavors of Israel',
     hero_subtitle: 'Discover premium products directly imported from the heart of Israel',
     hero_button: 'Shop Now',
-    
+
     // Categories
     categories_title: 'Shop by Category',
     categories_subtitle: 'Explore our curated selection of authentic Israeli products',
     view_all: 'View All',
-    
+
     // Category Names
     category_supermarket: 'Supermarket Products',
     category_driedfruits: 'Dried Fruits',
@@ -131,7 +134,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     category_snacks: 'Snacks & Sweets',
     category_coffee: 'Coffee',
     category_organic: 'Organic Products',
-    
+
     // Products
     featured_products: 'Featured Products',
     featured_subtitle: 'Our most popular items from Israel',
@@ -141,19 +144,19 @@ export const translations: Record<Language, TranslationDictionary> = {
     add_to_cart: 'Add to Cart',
     price: 'Price',
     sale: 'Sale',
-    
+
     // Testimonials
     testimonials_title: 'Customer Stories',
     testimonials_subtitle: 'Experience the authentic connection to Israel through the words of our satisfied customers',
     testimonials_footer: 'Join our satisfied customers and experience the taste of authentic Israel',
-    
+
     // Newsletter
     newsletter_title: 'Join Our Newsletter',
     newsletter_subtitle: 'Subscribe to stay updated on new products, exclusive offers, and the stories behind our authentic Israeli imports',
     newsletter_placeholder: 'Enter your email address',
     newsletter_button: 'Subscribe',
     newsletter_privacy: 'We respect your privacy. You can unsubscribe at any time.',
-    
+
     // Cart
     cart_title: 'Your Cart',
     cart_empty: 'Your cart is empty',
@@ -162,7 +165,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     proceed_to_checkout: 'Proceed to Checkout',
     remove: 'Remove',
     quantity: 'Quantity',
-    
+
     // Checkout
     checkout_title: 'Checkout',
     billing_details: 'Billing Details',
@@ -178,13 +181,13 @@ export const translations: Record<Language, TranslationDictionary> = {
     shipping: 'Shipping',
     total: 'Total',
     place_order: 'Place Order',
-    
+
     // Order confirmation
     order_confirmation_title: 'Order Confirmed',
     order_confirmation_message: 'Thank you for your order! We\'ll ship your authentic Israeli products soon.',
     order_number: 'Order Number',
     back_to_shopping: 'Back to Shopping',
-    
+
     // Footer
     footer_company: 'Company',
     footer_about: 'About Us',
@@ -195,7 +198,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     footer_terms: 'Terms of Service',
     footer_copyright: 'All rights reserved'
   },
-  
+
   he: {
     // Navigation
     home: 'דף הבית',
@@ -204,17 +207,18 @@ export const translations: Record<Language, TranslationDictionary> = {
     cart: 'עגלה',
     checkout: 'תשלום',
     search: 'חיפוש',
-    
+    all_products: 'כל המוצרים',
+
     // Hero section
     hero_title: 'טעמים אותנטיים של ישראל',
     hero_subtitle: 'גלה מוצרים איכותיים המיובאים ישירות מלב ישראל',
     hero_button: 'לקניות',
-    
+
     // Categories
     categories_title: 'קנה לפי קטגוריה',
     categories_subtitle: 'גלה את מבחר המוצרים האותנטיים שלנו מישראל',
     view_all: 'צפה בהכל',
-    
+
     // Category Names
     category_supermarket: 'מוצרי סופר',
     category_driedfruits: 'פירות ייבשים',
@@ -227,7 +231,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     category_snacks: 'ממתקים וחטיפים',
     category_coffee: 'קפה',
     category_organic: 'מוצרי מזון אורגנים',
-    
+
     // Products
     featured_products: 'מוצרים מובילים',
     featured_subtitle: 'המוצרים הפופולריים ביותר שלנו מישראל',
@@ -237,19 +241,19 @@ export const translations: Record<Language, TranslationDictionary> = {
     add_to_cart: 'הוסף לעגלה',
     price: 'מחיר',
     sale: 'מבצע',
-    
+
     // Testimonials
     testimonials_title: 'סיפורי לקוחות',
     testimonials_subtitle: 'חווה את החיבור האותנטי לישראל דרך הסיפורים של לקוחותינו המרוצים',
     testimonials_footer: 'הצטרף ללקוחות המרוצים שלנו וחווה את הטעם האותנטי של ישראל',
-    
+
     // Newsletter
     newsletter_title: 'הצטרף לניוזלטר שלנו',
     newsletter_subtitle: 'הירשם כדי להתעדכן במוצרים חדשים, הצעות בלעדיות והסיפורים מאחורי היבוא האותנטי שלנו מישראל',
     newsletter_placeholder: 'הכנס את כתובת האימייל שלך',
     newsletter_button: 'הרשם',
     newsletter_privacy: 'אנו מכבדים את פרטיותך. תוכל לבטל את המנוי בכל עת.',
-    
+
     // Cart
     cart_title: 'העגלה שלך',
     cart_empty: 'העגלה שלך ריקה',
@@ -258,7 +262,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     proceed_to_checkout: 'המשך לתשלום',
     remove: 'הסר',
     quantity: 'כמות',
-    
+
     // Checkout
     checkout_title: 'תשלום',
     billing_details: 'פרטי חיוב',
@@ -274,13 +278,13 @@ export const translations: Record<Language, TranslationDictionary> = {
     shipping: 'משלוח',
     total: 'סך הכל',
     place_order: 'בצע הזמנה',
-    
+
     // Order confirmation
     order_confirmation_title: 'ההזמנה אושרה',
     order_confirmation_message: 'תודה על הזמנתך! נשלח את המוצרים האותנטיים מישראל בקרוב.',
     order_number: 'מספר הזמנה',
     back_to_shopping: 'חזרה לקניות',
-    
+
     // Footer
     footer_company: 'חברה',
     footer_about: 'אודות',

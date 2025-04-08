@@ -2,15 +2,26 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./client/index.html",
+    "./client/src/**/*.{js,jsx,ts,tsx}",
+    "./client/components/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+      fontFamily: {
+        serif: ['Playfair Display', 'Source Serif Pro', 'serif'],
+        sans: ['Rubik', 'sans-serif'],
       },
       colors: {
+        vintage: {
+          cream: '#f9e8c1',
+          brown: '#8B4513',
+          lightBrown: '#c49a6c',
+          darkBrown: '#2c1810',
+          olive: '#556B2F',
+          lightCream: '#f9f3e7',
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -83,6 +94,11 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
     },
   },
