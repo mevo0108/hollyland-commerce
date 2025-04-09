@@ -95,6 +95,7 @@ async function seed() {
       {
         name: 'שמן זית עלית',
         description: 'שמן זית כתית מעולה מגידולי זיתים בגליל',
+        price: '24.99',
         imageUrl: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5',
         categoryId: insertedCategories[0].id,
         featured: true,
@@ -108,6 +109,7 @@ async function seed() {
       {
         name: 'תערובת תמרים',
         description: 'תערובת של תמרים מג\'הול ודגלת נור איכותיים',
+        price: '16.99',
         imageUrl: 'https://images.unsplash.com/photo-1604085792782-8d92f276d7d8',
         categoryId: insertedCategories[1].id,
         featured: true,
@@ -121,11 +123,13 @@ async function seed() {
       {
         name: 'פיסטוקים קלויים',
         description: 'פיסטוקים קלויים עם מלח ים תיכוני',
+        price: '12.99',
         imageUrl: 'https://images.unsplash.com/photo-1525706732602-9a8567d73e29',
         categoryId: insertedCategories[2].id,
         featured: true,
         isNewArrival: false,
         isSale: true,
+        originalPrice: '15.99',
         stockQuantity: 45,
         rating: '4.7',
         reviewCount: 56,
@@ -134,6 +138,7 @@ async function seed() {
       {
         name: 'תערובת זעתר',
         description: 'זעתר אותנטי עם זעתר בר, שומשום וסומק',
+        price: '8.99',
         imageUrl: 'https://images.unsplash.com/photo-1509358271058-acd22cc93898',
         categoryId: insertedCategories[3].id,
         featured: true,
@@ -147,6 +152,7 @@ async function seed() {
       {
         name: 'חלה ארטיזנלית ירושלמית',
         description: 'חלה מסורתית אפויה מקמח אורגני ישראלי',
+        price: '9.99',
         imageUrl: 'https://images.unsplash.com/photo-1600398138360-73c3eaaa8d03',
         categoryId: insertedCategories[4].id,
         featured: false,
@@ -160,6 +166,7 @@ async function seed() {
       {
         name: 'טחינה גולמית',
         description: 'טחינה גולמית עשויה מ-100% שומשום אתיופי',
+        price: '11.99',
         imageUrl: 'https://images.unsplash.com/photo-1590676681590-59bbf667f8e9',
         categoryId: insertedCategories[5].id,
         featured: false,
@@ -173,6 +180,7 @@ async function seed() {
       {
         name: 'יין ישראלי',
         description: 'יין אדום זוכה פרסים מאזור רמת הגולן',
+        price: '29.99',
         imageUrl: 'https://images.unsplash.com/photo-1553361371-9513901d383f',
         categoryId: insertedCategories[6].id,
         featured: false,
@@ -186,6 +194,7 @@ async function seed() {
       {
         name: 'חטיף במבה',
         description: 'חטיף תירס פריך בטעם חמאת בוטנים',
+        price: '4.99',
         imageUrl: 'https://images.unsplash.com/photo-1584178432809-fb5415b61dc8',
         categoryId: insertedCategories[7].id,
         featured: true,
@@ -199,6 +208,7 @@ async function seed() {
       {
         name: 'קפה טורקי עלית',
         description: 'קפה טורקי מסורתי טחון דק',
+        price: '7.99',
         imageUrl: 'https://images.unsplash.com/photo-1506372023823-741c83b836fe',
         categoryId: insertedCategories[8].id,
         featured: true,
@@ -212,6 +222,7 @@ async function seed() {
       {
         name: 'סירופ רימונים אורגני',
         description: 'סירופ רימונים מתוק וחמוץ עשוי מרימונים אורגניים ישראלים',
+        price: '13.99',
         imageUrl: 'https://images.unsplash.com/photo-1592845598868-1c2b939181a4',
         categoryId: insertedCategories[9].id,
         featured: false,
@@ -225,11 +236,13 @@ async function seed() {
       {
         name: 'רוטב חריף ישראלי',
         description: 'רוטב חריף שוג עם עשבי תיבול ופלפל חריף',
+        price: '6.99',
         imageUrl: 'https://images.unsplash.com/photo-1581166384010-1a548853cfc5',
         categoryId: insertedCategories[10].id,
         featured: false,
         isNewArrival: true,
         isSale: true,
+        originalPrice: '8.99',
         stockQuantity: 45,
         rating: '4.3',
         reviewCount: 28,
