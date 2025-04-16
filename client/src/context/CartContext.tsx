@@ -26,10 +26,10 @@ interface CartContextType {
 const defaultContext: CartContextType = {
   cartItems: [],
   isLoading: false,
-  addToCart: async () => {},
-  updateQuantity: async () => {},
-  removeFromCart: async () => {},
-  clearCart: async () => {},
+  addToCart: async () => { },
+  updateQuantity: async () => { },
+  removeFromCart: async () => { },
+  clearCart: async () => { },
   cartTotal: 0,
   cartCount: 0
 };
@@ -66,7 +66,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   const fetchCartItems = async () => {
     if (!sessionId) return;
-    
+
     setIsLoading(true);
     try {
       const response = await fetch(`/api/cart/${sessionId}`);
@@ -84,14 +84,14 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   const addToCart = async (product: Product, quantity: number) => {
     if (!sessionId) return;
-    
+
     try {
       await apiRequest('POST', '/api/cart', {
         productId: product.id,
         quantity,
         sessionId,
       });
-      
+
       await fetchCartItems();
     } catch (error) {
       console.error('Error adding to cart:', error);
@@ -101,12 +101,12 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   const updateQuantity = async (itemId: number, quantity: number) => {
     try {
       await apiRequest('PATCH', `/api/cart/${itemId}`, { quantity });
-      
+
       if (quantity === 0) {
         setCartItems(cartItems.filter(item => item.id !== itemId));
       } else {
         setCartItems(
-          cartItems.map(item => 
+          cartItems.map(item =>
             item.id === itemId ? { ...item, quantity } : item
           )
         );
@@ -127,7 +127,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
 
   const clearCart = async () => {
     if (!sessionId) return;
-    
+
     try {
       await apiRequest('DELETE', `/api/cart/session/${sessionId}`, undefined);
       setCartItems([]);
@@ -137,7 +137,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   };
 
   const cartTotal = cartItems.reduce(
-    (total, item) => total + (parseFloat(item.product.price.toString()) * item.quantity), 
+    (total, item) => total + (parseFloat(item.product.price.toString()) * item.quantity),
     0
   );
 
