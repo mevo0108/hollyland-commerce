@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Category } from "@shared/schema";
 import HollyandLogo from "@/assets/hollyand-logo.png";
 import { TranslationKey } from "@/lib/translations";
+import styles from './Header.module.css';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -67,12 +68,12 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
+          <div className={styles.navigationWrapper}>
             <NavigationMenu>
               <NavigationMenuList dir={isRTL ? "rtl" : "ltr"} className="flex items-center gap-8">
                 <NavigationMenuItem>
                   <Link href="/">
-                    <NavigationMenuLink className={`text-[#2c1810] hover:text-[#8B4513] font-serif font-medium cursor-pointer ${location === "/" ? "text-[#8B4513]" : ""}`}>
+                    <NavigationMenuLink className={`text-[#2c1810] hover:text-[#8B4513] font-serif font-medium cursor-pointer ${location === "/" ? styles.activeLink : ""}`}>
                       {t('home')}
                     </NavigationMenuLink>
                   </Link>
@@ -84,10 +85,10 @@ const Header = () => {
                     {t('categories')}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="absolute top-[100%] w-48 bg-[#f9f3e7] border border-[#c49a6c] rounded-md p-1 shadow-lg">
+                    <div className={styles.menuContent}>
                       {categories?.map((category: Category) => (
                         <Link key={category.id} href={`/products/category/${category.slug}`}>
-                          <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                          <span className={styles.menuItem}>
                             {t(getCategoryTranslationKey(category.slug))}
                           </span>
                         </Link>
@@ -102,19 +103,19 @@ const Header = () => {
                     {t('products')}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="absolute top-[100%] w-48 bg-[#f9f3e7] border border-[#c49a6c] rounded-md p-1 shadow-lg">
+                    <div className={styles.menuContent}>
                       <Link href="/products">
-                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                        <span className={styles.menuItem}>
                           {t('all_products')}
                         </span>
                       </Link>
                       <Link href="/products?featured=true">
-                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                        <span className={styles.menuItem}>
                           {t('featured_products')}
                         </span>
                       </Link>
                       <Link href="/products?sale=true">
-                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                        <span className={styles.menuItem}>
                           {t('sale')}
                         </span>
                       </Link>
@@ -128,19 +129,19 @@ const Header = () => {
                     {t('new_arrivals')}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="absolute top-[100%] w-48 bg-[#f9f3e7] border border-[#c49a6c] rounded-md p-1 shadow-lg">
+                    <div className={styles.menuContent}>
                       <Link href="/products?new=true">
-                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                        <span className={styles.menuItem}>
                           {t('new_arrivals')}
                         </span>
                       </Link>
                       <Link href="/products?new=true&category=supermarket">
-                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                        <span className={styles.menuItem}>
                           {t('category_supermarket')}
                         </span>
                       </Link>
                       <Link href="/products?new=true&category=coffee">
-                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                        <span className={styles.menuItem}>
                           {t('category_coffee')}
                         </span>
                       </Link>
