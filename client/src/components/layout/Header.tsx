@@ -67,87 +67,89 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <NavigationMenu className="hidden md:flex">
-            <NavigationMenuList className="space-x-8">
-              <NavigationMenuItem>
-                <Link href="/">
-                  <NavigationMenuLink className={`text-[#2c1810] hover:text-[#8B4513] font-serif font-medium cursor-pointer ${location === "/" ? "text-[#8B4513]" : ""}`}>
-                    {t('home')}
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+          <div className="hidden md:block">
+            <NavigationMenu>
+              <NavigationMenuList dir={isRTL ? "rtl" : "ltr"} className="flex items-center gap-8">
+                <NavigationMenuItem>
+                  <Link href="/">
+                    <NavigationMenuLink className={`text-[#2c1810] hover:text-[#8B4513] font-serif font-medium cursor-pointer ${location === "/" ? "text-[#8B4513]" : ""}`}>
+                      {t('home')}
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
 
-              {/* Categories dropdown */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-[#2c1810] hover:text-[#8B4513] font-serif font-medium">
-                  {t('categories')}
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-48 bg-[#f9f3e7] border border-[#c49a6c] rounded-md p-1">
-                    {categories?.map((category) => (
-                      <Link key={category.id} href={`/products/category/${category.slug}`}>
+                {/* Categories dropdown */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-[#2c1810] hover:text-[#8B4513] font-serif font-medium">
+                    {t('categories')}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="absolute top-[100%] w-48 bg-[#f9f3e7] border border-[#c49a6c] rounded-md p-1 shadow-lg">
+                      {categories?.map((category: Category) => (
+                        <Link key={category.id} href={`/products/category/${category.slug}`}>
+                          <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                            {t(getCategoryTranslationKey(category.slug))}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                {/* Products dropdown */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-[#2c1810] hover:text-[#8B4513] font-serif font-medium">
+                    {t('products')}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="absolute top-[100%] w-48 bg-[#f9f3e7] border border-[#c49a6c] rounded-md p-1 shadow-lg">
+                      <Link href="/products">
                         <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
-                          {t(getCategoryTranslationKey(category.slug))}
+                          {t('all_products')}
                         </span>
                       </Link>
-                    ))}
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+                      <Link href="/products?featured=true">
+                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                          {t('featured_products')}
+                        </span>
+                      </Link>
+                      <Link href="/products?sale=true">
+                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                          {t('sale')}
+                        </span>
+                      </Link>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
-              {/* Products dropdown */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-[#2c1810] hover:text-[#8B4513] font-serif font-medium">
-                  {t('products')}
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-48 bg-[#f9f3e7] border border-[#c49a6c] rounded-md p-1">
-                    <Link href="/products">
-                      <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
-                        {t('all_products')}
-                      </span>
-                    </Link>
-                    <Link href="/products?featured=true">
-                      <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
-                        {t('featured_products')}
-                      </span>
-                    </Link>
-                    <Link href="/products?sale=true">
-                      <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
-                        {t('sale')}
-                      </span>
-                    </Link>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              {/* New Arrivals dropdown */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-[#2c1810] hover:text-[#8B4513] font-serif font-medium">
-                  {t('new_arrivals')}
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-48 bg-[#f9f3e7] border border-[#c49a6c] rounded-md p-1">
-                    <Link href="/products?new=true">
-                      <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
-                        {t('new_arrivals')}
-                      </span>
-                    </Link>
-                    <Link href="/products?new=true&category=supermarket">
-                      <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
-                        {t('category_supermarket')}
-                      </span>
-                    </Link>
-                    <Link href="/products?new=true&category=coffee">
-                      <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
-                        {t('category_coffee')}
-                      </span>
-                    </Link>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+                {/* New Arrivals dropdown */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent text-[#2c1810] hover:text-[#8B4513] font-serif font-medium">
+                    {t('new_arrivals')}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="absolute top-[100%] w-48 bg-[#f9f3e7] border border-[#c49a6c] rounded-md p-1 shadow-lg">
+                      <Link href="/products?new=true">
+                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                          {t('new_arrivals')}
+                        </span>
+                      </Link>
+                      <Link href="/products?new=true&category=supermarket">
+                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                          {t('category_supermarket')}
+                        </span>
+                      </Link>
+                      <Link href="/products?new=true&category=coffee">
+                        <span className="block px-4 py-2 text-sm text-[#2c1810] hover:bg-[#f0e0c0] hover:text-[#8B4513] cursor-pointer font-serif">
+                          {t('category_coffee')}
+                        </span>
+                      </Link>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
 
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
