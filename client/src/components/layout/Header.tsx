@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
-import { SearchIcon, MenuIcon, CartIcon, ChevronDownIcon } from "@/lib/icons";
+import { SearchIcon, MenuIcon, CartIcon, ChevronDownIcon, UserIcon } from "@/lib/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +22,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const [location] = useLocation();
@@ -155,6 +161,16 @@ const Header = () => {
           {/* Right side icons */}
           <div className="flex items-center space-x-4">
             <LanguageSwitcher />
+
+            <Link href="/auth">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="bg-[#f0e0c0] hover:bg-[#e0d0b0] border border-[#c49a6c]"
+              >
+                <UserIcon className="h-6 w-6 text-[#8B4513]" />
+              </Button>
+            </Link>
 
             <Button
               variant="ghost"
