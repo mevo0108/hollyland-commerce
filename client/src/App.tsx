@@ -1,42 +1,33 @@
-import { Switch, Route } from "wouter";
-import NotFound from "@/pages/not-found";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import { Route, Switch } from "wouter";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/lib/queryClient";
+import { CartProvider } from "@/context/CartContext";
+import { LanguageProvider } from "@/context/LanguageContext";
+import Layout from "@/components/layout/Layout";
 import HomePage from "@/pages/HomePage";
 import ProductsPage from "@/pages/ProductsPage";
-import ProductDetailPage from "@/pages/ProductDetailPage";
+// import ProductPage from "@/pages/ProductPage"; // Commented out since module not found
 import CartPage from "@/pages/CartPage";
-import CheckoutPage from "@/pages/CheckoutPage";
-import OrderConfirmationPage from "@/pages/OrderConfirmationPage";
-import { LanguageProvider } from "@/context/LanguageContext";
+import AuthPage from "@/pages/AuthPage";
 
-function Router() {
+const App = () => {
   return (
-    <Switch>
-      <Route path="/" component={HomePage} />
-      <Route path="/products" component={ProductsPage} />
-      <Route path="/products/category/:slug" component={ProductsPage} />
-      <Route path="/products/:slug" component={ProductDetailPage} />
-      <Route path="/cart" component={CartPage} />
-      <Route path="/checkout" component={CheckoutPage} />
-      <Route path="/order-confirmation/:id" component={OrderConfirmationPage} />
-      <Route component={NotFound} />
-    </Switch>
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>
+        <CartProvider>
+          <Layout>
+            <Switch>
+              <Route path="/" component={HomePage} />
+              <Route path="/products" component={ProductsPage} />
+              <Route path="/products/:slug" component={ProductsPage} />
+              <Route path="/cart" component={CartPage} />
+              <Route path="/auth" component={AuthPage} />
+            </Switch>
+          </Layout>
+        </CartProvider>
+      </LanguageProvider>
+    </QueryClientProvider>
   );
-}
-
-function App() {
-  return (
-    <LanguageProvider>
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">
-          <Router />
-        </main>
-        <Footer />
-      </div>
-    </LanguageProvider>
-  );
-}
+};
 
 export default App;

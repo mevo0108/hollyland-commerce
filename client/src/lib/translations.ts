@@ -95,7 +95,20 @@ export type TranslationKey =
   | 'footer_privacy'
   | 'footer_terms'
   | 'footer_copyright'
-  | 'all_products';
+  | 'all_products'
+
+  // Authentication
+  | 'login'
+  | 'register'
+  | 'welcome_back'
+  | 'auth_description'
+  | 'password'
+  | 'confirm_password'
+  | 'username'
+  | 'logging_in'
+  | 'creating_account'
+  | 'create_account'
+  | 'or_continue_with';
 
 type TranslationDictionary = {
   [key in TranslationKey]: string;
@@ -196,7 +209,20 @@ export const translations: Record<Language, TranslationDictionary> = {
     footer_returns: 'Returns',
     footer_privacy: 'Privacy Policy',
     footer_terms: 'Terms of Service',
-    footer_copyright: 'All rights reserved'
+    footer_copyright: 'All rights reserved',
+
+    // Authentication
+    login: 'Login',
+    register: 'Register',
+    welcome_back: 'Welcome Back',
+    auth_description: 'Please sign in to your account or create a new one',
+    password: 'Password',
+    confirm_password: 'Confirm Password',
+    username: 'Username',
+    logging_in: 'Signing in...',
+    creating_account: 'Creating account...',
+    create_account: 'Create Account',
+    or_continue_with: 'Or continue with'
   },
 
   he: {
@@ -293,7 +319,20 @@ export const translations: Record<Language, TranslationDictionary> = {
     footer_returns: 'החזרות',
     footer_privacy: 'מדיניות פרטיות',
     footer_terms: 'תנאי שימוש',
-    footer_copyright: 'כל הזכויות שמורות'
+    footer_copyright: 'כל הזכויות שמורות',
+
+    // Authentication
+    login: 'התחברות',
+    register: 'הרשמה',
+    welcome_back: 'ברוכים השבים',
+    auth_description: 'אנא התחבר לחשבונך או צור חשבון חדש',
+    password: 'סיסמה',
+    confirm_password: 'אימות סיסמה',
+    username: 'שם משתמש',
+    logging_in: 'מתחבר...',
+    creating_account: 'יוצר חשבון...',
+    create_account: 'צור חשבון',
+    or_continue_with: 'או המשך עם'
   }
 };
 
