@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
 import { Category, Product } from "@shared/schema";
 import { SearchIcon } from "@/lib/icons";
+import { useCategories } from "@/context/CategoryContext";
 
 // פונקציה לקבלת מוצרים לפי קטגוריה
 const getProductsByCategory = async (categoryId: number | null): Promise<Product[]> => {
@@ -24,13 +25,23 @@ const getProductsByCategory = async (categoryId: number | null): Promise<Product
 const ProductsPage = () => {
   const [location, setLocation] = useLocation();
   const params = useParams();
-  const categorySlug = params?.slug;
 
   // Parse query params from URL
   const searchParams = new URLSearchParams(location.split('?')[1] || '');
   const initialFeatured = searchParams.get('featured') === 'true';
   const initialNew = searchParams.get('new') === 'true';
   const initialSale = searchParams.get('sale') === 'true';
+  const categoryParam = searchParams.get('category');
+
+  // For debugging - log the params
+  console.log("Route params:", params);
+  console.log("URL category slug:", categoryParam);
+
+  // Use either route parameter or query parameter
+  const categorySlug = params?.slug || categoryParam;
+
+  // Get categories from context
+  const { categories, isLoading: categoriesLoading, getCategoryBySlug } = useCategories();
 
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,27 +56,27 @@ const ProductsPage = () => {
     queryKey: ['/api/products'],
   });
 
-  // Get all categories
-  const { data: categories, isLoading: categoriesLoading } = useQuery<Category[]>({
-    queryKey: ['/api/categories'],
-  });
-
   // Get products based on category
   const { data: categoryProducts, isLoading: isLoadingCategory } = useQuery({
     queryKey: ['products', 'category', selectedCategory],
-    queryFn: () => getProductsByCategory(selectedCategory),
+    queryFn: () => {
+      console.log("Fetching products for category ID:", selectedCategory);
+      return getProductsByCategory(selectedCategory);
+    },
     enabled: !!selectedCategory,
   });
 
-  // Fetch category ID based on slug
+  // Fetch category ID based on slug using Context
   useEffect(() => {
-    if (categorySlug && categories) {
-      const category = categories.find(c => c.slug === categorySlug);
+    if (categorySlug) {
+      const category = getCategoryBySlug(categorySlug);
       if (category) {
         setSelectedCategory(category.id);
       }
+    } else {
+      setSelectedCategory(null);
     }
-  }, [categorySlug, categories]);
+  }, [categorySlug, getCategoryBySlug]);
 
   // Update URL when filters change
   useEffect(() => {
@@ -74,11 +85,19 @@ const ProductsPage = () => {
     if (isNew) params.append('new', 'true');
     if (onSale) params.append('sale', 'true');
 
+    // If there's a selected category, add it to the URL
+    if (selectedCategory && categories) {
+      const category = categories.find(c => c.id === selectedCategory);
+      if (category) {
+        params.append('category', category.slug);
+      }
+    }
+
     const newUrl = location.split('?')[0] + (params.toString() ? `?${params.toString()}` : '');
     if (newUrl !== location) {
       setLocation(newUrl);
     }
-  }, [featured, isNew, onSale, location, setLocation]);
+  }, [featured, isNew, onSale, selectedCategory, categories, location, setLocation]);
 
   // Filter products based on search and filters
   const filteredProducts = useMemo(() => {
@@ -110,9 +129,8 @@ const ProductsPage = () => {
     setIsNew(false);
     setOnSale(false);
     setPriceRange([0, 200]);
-    if (categorySlug) {
-      setLocation("/products");
-    }
+    setSelectedCategory(null);
+    // URL will be updated by the useEffect
   };
 
   // Show loading state
@@ -231,10 +249,15 @@ const ProductsPage = () => {
                           id={`category-${category.id}`}
                           checked={selectedCategory === category.id}
                           onCheckedChange={() => {
+                            console.log("Checkbox clicked for category:", category);
                             if (selectedCategory === category.id) {
-                              setLocation("/products");
+                              console.log("Unchecking category");
+                              setSelectedCategory(null);
+                              // URL will be updated by the useEffect
                             } else {
-                              setLocation(`/products/category/${category.slug}`);
+                              console.log("Checking category:", category.slug);
+                              setSelectedCategory(category.id);
+                              // URL will be updated by the useEffect
                             }
                           }}
                         />
@@ -265,8 +288,8 @@ const ProductsPage = () => {
         <div className="flex-grow">
           <div className="mb-6">
             <h1 className="text-2xl md:text-3xl font-bold mb-2">
-              {categorySlug && categories ? (
-                categories.find(c => c.slug === categorySlug)?.name || "Products"
+              {categorySlug ? (
+                getCategoryBySlug(categorySlug)?.name || "Products"
               ) : featured ? (
                 "Featured Products"
               ) : isNew ? (

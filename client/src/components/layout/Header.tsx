@@ -93,7 +93,7 @@ const Header = () => {
                   <NavigationMenuContent>
                     <div className={styles.menuContent}>
                       {categories?.map((category: Category) => (
-                        <Link key={category.id} href={`/products/category/${category.slug}`}>
+                        <Link key={category.id} href={`/products?category=${category.slug}`}>
                           <span className={styles.menuItem}>
                             {t(getCategoryTranslationKey(category.slug))}
                           </span>
