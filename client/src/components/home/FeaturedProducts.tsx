@@ -11,26 +11,41 @@ const FeaturedProducts = () => {
   const { addToCart } = useCart();
 
   // Simplified product card for direct rendering
-  const SimpleProductCard = ({ 
-    id, 
-    name, 
-    price, 
+  interface ProductCardProps {
+    id: number;
+    name: string;
+    price: number | string;
+    originalPrice?: number | string | null;
+    description: string;
+    image: string;
+    slug: string;
+    isSale?: boolean;
+    isNew?: boolean;
+    isFeatured?: boolean;
+    rating?: number;
+    reviewCount?: number;
+  }
+
+  const SimpleProductCard = ({
+    id,
+    name,
+    price,
     originalPrice = null,
-    description, 
-    image, 
-    slug, 
+    description,
+    image,
+    slug,
     isSale = false,
     isNew = false,
     isFeatured = true,
     rating = 4.5,
     reviewCount = 20
-  }) => {
-    const handleAddToCart = (e) => {
+  }: ProductCardProps) => {
+    const handleAddToCart = (e: React.MouseEvent) => {
       e.preventDefault();
       addToCart({
         id,
         name,
-        price,
+        price: typeof price === 'string' ? price : price.toString(),
         description,
         imageUrl: image,
         slug,
@@ -38,7 +53,9 @@ const FeaturedProducts = () => {
         featured: isFeatured,
         isNewArrival: isNew,
         isSale,
-        originalPrice,
+        originalPrice: originalPrice !== null ?
+          (typeof originalPrice === 'string' ? originalPrice : originalPrice.toString())
+          : null,
         stockQuantity: 10,
         rating: rating.toString(),
         reviewCount
@@ -46,24 +63,24 @@ const FeaturedProducts = () => {
     };
 
     // Simple star rating display
-    const renderStars = (rating) => {
+    const renderStars = (rating: number) => {
       const stars = [];
       const fullStars = Math.floor(rating);
       const hasHalf = rating % 1 >= 0.5;
-      
+
       for (let i = 0; i < fullStars; i++) {
         stars.push(<StarFilledIcon key={`full-${i}`} className="w-4 h-4 text-yellow-400" />);
       }
-      
+
       if (hasHalf) {
         stars.push(<StarHalfIcon key="half" className="w-4 h-4 text-yellow-400" />);
       }
-      
+
       const emptyStars = 5 - Math.ceil(rating);
       for (let i = 0; i < emptyStars; i++) {
         stars.push(<StarOutlineIcon key={`empty-${i}`} className="w-4 h-4 text-yellow-400" />);
       }
-      
+
       return stars;
     };
 
@@ -72,7 +89,7 @@ const FeaturedProducts = () => {
         <Link href={`/products/${slug}`}>
           <div className="relative">
             <div className="relative overflow-hidden">
-              <img 
+              <img
                 src={image}
                 alt={name}
                 loading="eager"
@@ -80,7 +97,7 @@ const FeaturedProducts = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2c1810]/20 to-transparent"></div>
             </div>
-            
+
             {/* Product badges */}
             <div className="absolute top-3 right-3">
               {isNew && (
@@ -94,24 +111,30 @@ const FeaturedProducts = () => {
               )}
             </div>
           </div>
-          
+
           <div className="p-5 flex-grow flex flex-col">
             <h3 className="text-xl font-serif font-bold text-[#2c1810] group-hover:text-[#8B4513] transition-colors">{name}</h3>
             <div className="w-12 h-0.5 bg-[#c49a6c] my-2"></div>
             <p className="text-[#5c4838] text-sm mb-4 font-serif">{description}</p>
-            
+
             <div className="flex justify-between items-center mt-auto">
               <div>
                 {isSale && originalPrice ? (
                   <div className="flex flex-col sm:flex-row sm:items-center font-serif">
-                    <span className="text-xl font-bold text-[#b54834]">${parseFloat(price).toFixed(2)}</span>
-                    <span className="text-sm text-[#5c4838] line-through sm:ml-2">${parseFloat(originalPrice).toFixed(2)}</span>
+                    <span className="text-xl font-bold text-[#b54834]">
+                      ${typeof price === 'number' ? price.toFixed(2) : parseFloat(price).toFixed(2)}
+                    </span>
+                    <span className="text-sm text-[#5c4838] line-through sm:ml-2">
+                      ${typeof originalPrice === 'number' ? originalPrice.toFixed(2) : parseFloat(String(originalPrice)).toFixed(2)}
+                    </span>
                   </div>
                 ) : (
-                  <div className="text-xl font-bold text-[#2c1810] font-serif">${parseFloat(price).toFixed(2)}</div>
+                  <div className="text-xl font-bold text-[#2c1810] font-serif">
+                    ${typeof price === 'number' ? price.toFixed(2) : parseFloat(price).toFixed(2)}
+                  </div>
                 )}
               </div>
-              
+
               <div className="flex items-center">
                 <div className="flex items-center">
                   {renderStars(rating)}
@@ -119,8 +142,8 @@ const FeaturedProducts = () => {
                 <span className="text-[#5c4838] text-sm ml-1 font-serif">({reviewCount})</span>
               </div>
             </div>
-            
-            <Button 
+
+            <Button
               className="mt-5 w-full bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c] font-serif"
               onClick={handleAddToCart}
             >
@@ -141,10 +164,10 @@ const FeaturedProducts = () => {
           <div className="vintage-divider w-24 mx-auto"></div>
           <p className="text-[#5c4838] font-serif mt-4 max-w-2xl mx-auto">{t('featured_subtitle')}</p>
         </div>
-        
+
         {/* Direct rendering of products - simpler approach */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          <SimpleProductCard 
+          <SimpleProductCard
             id={1}
             name="Jerusalem Artisan Tahini"
             price={12.99}
@@ -157,8 +180,8 @@ const FeaturedProducts = () => {
             rating={4.8}
             reviewCount={124}
           />
-          
-          <SimpleProductCard 
+
+          <SimpleProductCard
             id={2}
             name="Galilee Olive Oil"
             price={19.99}
@@ -172,8 +195,8 @@ const FeaturedProducts = () => {
             rating={4.9}
             reviewCount={86}
           />
-          
-          <SimpleProductCard 
+
+          <SimpleProductCard
             id={3}
             name="Dead Sea Salt Mix"
             price={8.99}
@@ -186,8 +209,8 @@ const FeaturedProducts = () => {
             rating={4.5}
             reviewCount={42}
           />
-          
-          <SimpleProductCard 
+
+          <SimpleProductCard
             id={4}
             name="Tel Aviv Date Honey"
             price={15.99}
@@ -201,7 +224,7 @@ const FeaturedProducts = () => {
             reviewCount={28}
           />
         </div>
-        
+
         <div className="text-center mt-10">
           <Link href="/products">
             <Button className="vintage-button bg-[#8B4513] hover:bg-[#6B3009] text-[#f9e8c1] border border-[#c49a6c] font-serif">

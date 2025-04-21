@@ -3,6 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { CartProvider } from "@/context/CartContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { CategoryProvider } from "@/context/CategoryContext";
 import Layout from "@/components/layout/Layout";
 import HomePage from "@/pages/HomePage";
 import ProductsPage from "@/pages/ProductsPage";
@@ -14,17 +15,18 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <CartProvider>
-          <Layout>
-            <Switch>
-              <Route path="/" component={HomePage} />
-              <Route path="/products" component={ProductsPage} />
-              <Route path="/products/:slug" component={ProductsPage} />
-              <Route path="/cart" component={CartPage} />
-              <Route path="/auth" component={AuthPage} />
-            </Switch>
-          </Layout>
-        </CartProvider>
+        <CategoryProvider>
+          <CartProvider>
+            <Layout>
+              <Switch>
+                <Route path="/" component={HomePage} />
+                <Route path="/products" component={ProductsPage} />
+                <Route path="/cart" component={CartPage} />
+                <Route path="/auth" component={AuthPage} />
+              </Switch>
+            </Layout>
+          </CartProvider>
+        </CategoryProvider>
       </LanguageProvider>
     </QueryClientProvider>
   );

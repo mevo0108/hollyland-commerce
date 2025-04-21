@@ -5,7 +5,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const Hero = () => {
   const { t } = useLanguage();
-  
+
   return (
     <section className="relative bg-[#f9e8c1] text-[#2c1810]">
       <div className="absolute inset-0 overflow-hidden">
